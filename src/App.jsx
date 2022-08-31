@@ -1,8 +1,7 @@
 const React = require("react");
-const ReactDom = require("react-dom");
 const { Component } = React;
 
-class react_test extends Component{
+class App extends Component{
     state = {
         name  : 'hello webpack'
     };
@@ -14,4 +13,4 @@ class react_test extends Component{
     }
 }
 
-module.exports = react_test;
+module.exports = App;
