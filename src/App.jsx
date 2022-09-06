@@ -1,16 +1,16 @@
-const React = require("react");
-const { Component } = React;
+import React from 'react';
+import Header from './components/frame/Header'
+import Contents from './components/frame/Contents'
+import Footer from './components/frame/Footer'
 
-class App extends Component{
-    state = {
-        name  : 'hello webpack'
-    };
+function App() {
+    return (
+      <>
+        <Header />
+        {/* <Contents /> */}
+        {/* <Footer /> */}
+      </>
+    );
+  }
 
-    render(){
-        return (
-            <h1>{this.state.name}</h1>
-        )
-    }
-}
-
-module.exports = App;
+export default App
