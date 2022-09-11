@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
     name : 'React-webpack-setting', // 웹팩 설정 이름
@@ -10,6 +11,12 @@ module.exports = {
     },
     entry:{
         app : ['./src/index.jsx'], 
+    },
+    output:{
+        path: path.join(__dirname, '/dist'),
+        filename: 'app.js',
+        library: 'NEX_SIGN',
+        libraryTarget: 'umd'
     },
     target: ['web', 'es5'],
     module: {
@@ -35,10 +42,12 @@ module.exports = {
         filename: 'index.html',
         template: './public/index.html',
         inject: true
+      }),
+      new CopyWebpackPlugin({
+        patterns: [
+            { from: './src/assets/fonts', to: './fonts' },
+            { from: './src/config', to: './config' },
+        ]
       })
-    ],
-    output:{
-        path: path.join(__dirname, '/dist'),
-        filename: 'app.js'
-    }
+    ]
 }

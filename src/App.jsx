@@ -1,14 +1,21 @@
 import React from 'react';
-import Header from './components/frame/Header'
-import Contents from './components/frame/Contents'
-import Footer from './components/frame/Footer'
+import Header from './components/layout/Header'
+import Contents from './components/layout/Contents'
+import Provider from './components/layout/Provider'
+import Footer from './components/layout/Footer'
+import PopupModal from './components/item/PopupModal';
 
 function App() {
     return (
       <>
-        <Header />
-        {/* <Contents /> */}
-        {/* <Footer /> */}
+        <div className="ns-block-bg"></div>
+        <div className="ns-sign">
+          <Header />
+          <Provider />
+          <Contents/>
+          <PopupModal/>
+          <Footer />
+        </div>
       </>
     );
   }

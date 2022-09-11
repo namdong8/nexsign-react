@@ -1,16 +1,44 @@
 import '@babel/polyfill'
 import React from "react"
 import { createRoot } from 'react-dom/client'
-import App from './App'
 import { Provider } from 'react-redux'
-
+import App from './App'
 import store from './store/store'
-const container = document.getElementById('root')
-const root = createRoot(container)
-root.render(
-    // Provider 는 react-redux 라이브러리에 내장되어있는, 
-    // 리액트 앱에 store 를 손쉽게 연동 할 수 있도록 도와주는 컴포넌트
-    <Provider store={store}>
-        <App />
-    </Provider>
-)
+import './utils/cssVars'
+
+// CSS Load
+import './assets/css/common.css'
+import './assets/css/app.css'
+import './assets/css/fonts.css'
+
+export function SET_USER(json){
+  console.log(`SET_USER: ${JSON.stringify(json)}`)
+}
+export function SET_SELECT_PROVIDER(json){
+  console.log(`SET_SELECT_PROVIDER ID: ${JSON.stringify(json)}`)
+}
+export function SET_CONFIG(json){
+  console.log(`SET_CONFIG: ${JSON.stringify(json)}`)
+}
+
+export function POPUP(){
+  const container = document.getElementById('root')
+  const root = createRoot(container)
+  root.render(
+      <Provider store={store}>
+          <App />
+      </Provider>
+  )
+}
+
+export const CONFIG = {
+  TOKEN_API_CALLBACK : () => {
+    alert("토큰요청 CALLBACK")
+  },
+  AUTH_API_CALLBACK: () => {
+    alert('인증요청 CALLBACK')
+  },
+  CONFIRM_API_CALLBACK : () => {
+    alert('인증확인 CALLBACK')
+  }
+}

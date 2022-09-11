@@ -1,6 +1,7 @@
 import React from 'react';
 
-function PopupModal() {
+function Contents() {
+
   // ✅ View 
   return (
     <>
@@ -8,4 +9,4 @@ function PopupModal() {
   );
 };
 
-export default PopupModal
+export default Contents

@@ -4,9 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React - Web</title>
+    <title>NEX-Sign</title>
 </head>
 <body>
+    <button id="sign" type="button">인증</button>
     <div id="root"></div>
 </body>
+<script>
+    document.getElementById("sign").onclick = function() {
+
+        NEX_SIGN.SET_USER({
+            name: '남동훈',
+            phone: '01030431071',
+            birthday: '19880803',
+        })
+        NEX_SIGN.SET_SELECT_PROVIDER({
+            id: 'kakao'
+        })
+        NEX_SIGN.SET_CONFIG({
+
+        })
+        NEX_SIGN.POPUP()
+    }
+</script>
 </html>

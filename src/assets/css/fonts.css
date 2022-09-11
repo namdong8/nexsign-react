@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'Noto Sans KR Light';
+    font-style: normal;
+    font-weight: 300;
+    src: 
+    var(--NotoSansKR-Light-woff2),
+    var(--NotoSansKR-Light-woff),
+    var(--NotoSansKR-Light-otf)
+}
+@font-face {
+    font-family: 'Noto Sans KR Regular';
+    font-style: normal;
+    font-weight: 400;
+    src: 
+    var(--NotoSansKR-Regular-woff2),
+    var(--NotoSansKR-Regular-woff),
+    var(--NotoSansKR-Regular-otf)
+}
+@font-face {
+    font-family: 'Noto Sans KR Medium';
+    font-style: normal;
+    font-weight: 600;
+    src: 
+    var(--NotoSansKR-Medium-woff2),
+    var(--NotoSansKR-Medium-woff),
+    var(--NotoSansKR-Medium-otf)
+}
+@font-face {
+    font-family: 'Noto Sans KR Bold';
+    font-style: normal;
+    font-weight: 700;
+    src: 
+    var(--NotoSansKR-Bold-woff2),
+    var(--NotoSansKR-Bold-woff),
+    var(--NotoSansKR-Bold-otf)
+}
+
+header h1{ font-size: 18px;}
+html, body{
+    /* font-family: 'Noto Sans KR Bold'; */
+    /* font-family: 'Noto Sans KR Medium'; */
+    /* font-family: 'Noto Sans KR Light'; */
+    font-family: 'Noto Sans KR Regular';
+}

@@ -1,0 +1,24 @@
+.ns-sign iframe, .ns-sign h1, .ns-sign h2, .ns-sign h3, .ns-sign h4, .ns-sign h5, .ns-sign h6, .ns-sign p, .ns-sign blockquote, .ns-sign pre,
+.ns-sign a, .ns-sign abbr, .ns-sign acronym, .ns-sign address, .ns-sign big, .ns-sign cite, .ns-sign code,
+.ns-sign dfn, .ns-sign em, .ns-sign img, .ns-sign ins, .ns-sign kbd, .ns-sign q, .ns-sign s, .ns-sign samp,
+.ns-sign strong, .ns-sign sub, .ns-sign sup, .ns-sign tt, .ns-sign var,
+.ns-sign b, .ns-sign i, .ns-sign center, dl, .ns-sign dt, .ns-sign dd, .ns-sign ol, .ns-sign ul, .ns-sign li,
+.ns-sign form, .ns-sign label, .ns-sign legend, table, .ns-sign caption, .ns-sign tbody, .ns-sign tfoot, .ns-sign thead, .ns-sign tr, .ns-sign th, .ns-sign td,
+article, .ns-sign aside, .ns-sign canvas, .ns-sign details, .ns-sign embed, .ns-sign figure, .ns-sign figcaption, .ns-sign footer, .ns-sign header, .ns-sign hgroup, 
+.ns-sign menu, .ns-sign nav, .ns-sign output, .ns-sign ruby, .ns-sign section, .ns-sign summary,
+.ns-sign time, .ns-sign mark, .ns-sign audio, .ns-sign video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+}
+.ns-sign article, .ns-sign aside, .ns-sign footer, .ns-sign header, .ns-sign hgroup, .ns-sign menu, .ns-sign nav, .ns-sign section {
+	display: block;
+}
+.ns-sign ol, .ns-sign ul {
+	list-style: none;
+}
+.ns-sign table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
