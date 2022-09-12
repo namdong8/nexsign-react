@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import App from './App'
 import store from './store/store'
+import {setUser} from './store//modules//userinfoSlice.js'
 import './utils/cssVars'
 
 // CSS Load
@@ -12,7 +13,9 @@ import './assets/css/app.css'
 import './assets/css/fonts.css'
 
 export function SET_USER(json){
-  console.log(`SET_USER: ${JSON.stringify(json)}`)
+  // console.log(`SET_USER: ${JSON.stringify(json)}`)
+  store.dispatch(setUser(json))
+
 }
 export function SET_SELECT_PROVIDER(json){
   console.log(`SET_SELECT_PROVIDER ID: ${JSON.stringify(json)}`)

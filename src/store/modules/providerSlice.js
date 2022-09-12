@@ -6,7 +6,7 @@ const initialState = {
   name: 'test',
   count: 0,
   value: 0,
-  lists: []
+  list: []
 }
 
 // ✅ Reducer 선언
@@ -17,8 +17,8 @@ const reducers = {
   minusCount: (state, action) => {
     state.value = action.payload
   },
-  init:  (state, action) => {
-    state.value = initialState
+  init:  (state) => {
+    state = initialState
   }
 }
 
@@ -27,8 +27,8 @@ export const getProviderList = createAsyncThunk(
   'provider/getProviderList',
   async (id, {rejectWithValue}) => {
     try {
-      const response = await api.getProviderList(id);
-      return response.data;
+      const res = await api.getProviderList(id);
+      return res;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
@@ -44,7 +44,7 @@ const extraReducers = (builder) => {
   })
   .addCase(getProviderList.fulfilled, (state, action) => {
     // Success
-    state.lists = action.payload
+    state.list = action.payload
   })
   .addCase(getProviderList.rejected, (state, action) => {
     // Fail

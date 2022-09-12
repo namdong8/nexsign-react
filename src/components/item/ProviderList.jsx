@@ -1,28 +1,25 @@
-import React, { useState, useCallback } from 'react';
-import { useAppDispatch, useAppSelector } from '../../store/hook';
+import React from 'react';
+import { useAppDispatch, useAppSelector } from '../../store/redux';
 import { addCount, getProviderList, selectProvider } from '../../store/modules/providerSlice';
 
 function ProviderList(props) {
 
   // ✅ 지역변수
-  const [names, setNames] = useState([]);
-  const [input, setInput] = useState('');
-  const [number, setNumber] = useState(0);
 
   const list = props.list
 
-  // ✅ Hooks
+  // ✅ Redux
   const {value} = useAppSelector(selectProvider);
   const dispatch = useAppDispatch();
 
   // ✅ Functions
-  const onMinus = useCallback(() => {
+  const onMinus = () => {
     dispatch(addCount(value - 1));
-  }, [dispatch, value]);
+  };
 
-  const onAdd = useCallback(() => {
+  const onAdd = () => {
     dispatch(addCount(value + 1));
-  }, [dispatch, value]);
+  };
 
   // ✅ View 
   return (

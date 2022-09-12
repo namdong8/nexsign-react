@@ -1,6 +1,5 @@
 import axios from "axios"
-import json from "./json"
-const GET_PROVIDER_LIST_URL = "https://localhost:3000/get/provider/list"
+const GET_PROVIDER_LIST_URL = "http://localhost:5000/provider/list"
 const SET_PROVIDER_URL = "https://localhost:3000/set/provider"
 
 const HEADER = {
@@ -12,13 +11,12 @@ const HEADER = {
 
 export const api = {
     getProviderList: ()=>{
-        return json
-        /* return axios.get(GET_PROVIDER_LIST_URL)
+        return axios.get(GET_PROVIDER_LIST_URL)
         .then((res)=>{
-            console.log(res.data)
+            return res.data
         }).catch((Error)=>{
             console.log(Error)
-        }) */
+        })
     },
     setProviderList: (json)=>{
         return axios.post(SET_PROVIDER_URL, json, HEADER)

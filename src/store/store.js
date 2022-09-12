@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { createLogger } from 'redux-logger'
 import providerSlice from './modules/providerSlice'
+import userinfoSlice from './modules/userinfoSlice'
 // import userinfo from './modules/userinfo'
 
 // Redux - Flux 아키텍쳐 기반
@@ -17,7 +18,7 @@ const initialState = {};
 const reducer = combineReducers({
     //Defind Reducer
     providerSlice,
-    // userinfo
+    userinfoSlice,
 })
 
 const store = configureStore({

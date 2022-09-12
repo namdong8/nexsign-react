@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useAppDispatch, useAppSelector } from '../store/hook';
+import { useAppDispatch, useAppSelector } from '../store/redux';
 import { addCount, getTemplate, selectTemplate } from '../store/_templateSlice';
 
 function Template() {
@@ -9,8 +9,7 @@ function Template() {
   const [input, setInput] = useState('');
   const [number, setNumber] = useState(0);
 
-  // ✅ Hooks
-  // 초기 상태값 등록
+  // ✅ Redux
   const {name, count, value} = useAppSelector(selectTemplate);
   const dispatch = useAppDispatch();
 
