@@ -1,9 +1,9 @@
 import React from 'react';
-import Header from './components/layout/Header'
-import Contents from './components/layout/Contents'
-import Provider from './components/layout/Provider'
-import Footer from './components/layout/Footer'
-import PopupModal from './components/item/PopupModal';
+import Header from './view/layout/Header'
+import Contents from './view/layout/Contents'
+import Provider from './view/layout/Provider'
+import Footer from './view/layout/Footer'
+import PopupModal from './view/components/PopupModal';
 
 function App() {
     return (

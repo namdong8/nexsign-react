@@ -1,65 +1,45 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { api } from '../../utils/api'
+import { createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit'
+import api from '../../utils/api'
 
 // ✅ 상태변수 초기값
 const initialState = {
-  name: 'test',
-  count: 0,
-  value: 0,
+  id: '',
   list: []
 }
 
 // ✅ Reducer 선언
 const reducers = {
-  addCount: (state, action) => {
-    state.value = action.payload
+  setProviderId: (state, action) => {
+    state.id = action.payload
   },
-  minusCount: (state, action) => {
-    state.value = action.payload
+  setList: (state, action) => {
+    state.list = action.payload
   },
   init:  (state) => {
     state = initialState
   }
 }
 
-// ✅ API 비동기 통신
-export const getProviderList = createAsyncThunk(
-  'provider/getProviderList',
-  async (id, {rejectWithValue}) => {
-    try {
-      const res = await api.getProviderList(id);
-      return res;
+// ✅ 비동기 Thunk
+export const fetchGetProviderList = createAsyncThunk(
+  'providerSlice/fetchGetProviderList',
+  async (v, {rejectWithValue, getState, dispatch}) => {
+    try { 
+      const API_CONTEXT_URL =  getState().configSlice.API_CONTEXT_URL
+      const list = await api.getProviderList(API_CONTEXT_URL);
+      dispatch(setList(list))
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
   }
 );
 
-// ✅ thunk
-// https://velog.io/@raejoonee/createAsyncThunk
-const extraReducers = (builder) => {
-  builder
-  .addCase(getProviderList.pending, (state, action) => {
-    // Wait
-  })
-  .addCase(getProviderList.fulfilled, (state, action) => {
-    // Success
-    state.list = action.payload
-  })
-  .addCase(getProviderList.rejected, (state, action) => {
-    // Fail
-  })
-}
-
 // ✅ redux toolkit 설정 
-// createSlice는 createAction과 createReducer() 를 한번에 사용한 것
-// 액션 생성자, 액션 타입, 리듀서를 자동으로 생성
 const providerSlice = createSlice({
-  name: 'provider', // 해당 모듈 이름
+  name: 'providerSlice', // 해당 모듈 이름
   initialState,  // 모듈 상태 초기화
   reducers, // 리듀서 작성
-  extraReducers
 })
-export const { addCount, minusCount } = providerSlice.actions
+export const { init, setProviderId, setList } = providerSlice.actions
 export const selectProvider = state => state.providerSlice
 export default providerSlice.reducer

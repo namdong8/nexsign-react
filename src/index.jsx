@@ -4,30 +4,32 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import App from './App'
 import store from './store/store'
-import {setUser} from './store//modules//userinfoSlice.js'
-import './utils/cssVars'
+import {setUser} from './store/modules/userinfoSlice'
+import {setProviderId} from './store/modules/providerSlice'
+import {fetchSetConfig} from './store/modules/configSlice'
 
 // CSS Load
 import './assets/css/common.css'
 import './assets/css/app.css'
 import './assets/css/fonts.css'
 
-export function SET_USER(json){
-  // console.log(`SET_USER: ${JSON.stringify(json)}`)
+/** 사용자정보 자동 기입 */
+export function SET_USER_JSON(json){
   store.dispatch(setUser(json))
+}
+/** 인증기관 자동 선택 */
+export function SET_SELECT_PROVIDER_ID(json){
+  store.dispatch(setProviderId(json))
+}
+/** Config File 셋팅 */
+export async function SET_CONFIG_PATH(path){
+  // 외부 설정파일 Config 셋팅
+  await store.dispatch(fetchSetConfig(path))
+}
 
-}
-export function SET_SELECT_PROVIDER(json){
-  console.log(`SET_SELECT_PROVIDER ID: ${JSON.stringify(json)}`)
-}
-export function SET_CONFIG(json){
-  console.log(`SET_CONFIG: ${JSON.stringify(json)}`)
-}
-
-export function POPUP(){
-  const container = document.getElementById('root')
-  const root = createRoot(container)
-  root.render(
+/** 인증창 팝업 */
+export async function POPUP(){
+  createRoot(document.getElementById('root')).render(
       <Provider store={store}>
           <App />
       </Provider>

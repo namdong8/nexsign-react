@@ -1,5 +1,5 @@
 import React from 'react';
-import UserInfo from '../item/UserInfo';
+import UserInfo from '../components/UserInfo';
 import { useAppDispatch, useAppSelector } from '../../store/redux';
 import { setName, setBirthday, setPhone, selectUserinfo } from '../../store/modules/userinfoSlice'
 

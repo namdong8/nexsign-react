@@ -10,20 +10,24 @@
     <button id="sign" type="button">인증</button>
     <div id="root"></div>
 </body>
+
+<script defer="" src="/main/app.js"></script>
 <script>
     document.getElementById("sign").onclick = function() {
 
-        NEX_SIGN.SET_USER({
+        // 사용자정보 자동 기입
+        NEX_SIGN.SET_USER_JSON({
             name: '남동훈',
             phone: '01030431071',
             birthday: '19880803',
         })
-        NEX_SIGN.SET_SELECT_PROVIDER({
-            id: 'kakao'
-        })
-        NEX_SIGN.SET_CONFIG({
+        // 인증기관 자동 선택
+        NEX_SIGN.SET_SELECT_PROVIDER_ID('kakao')
 
-        })
+        // 설정파일 경로 지정 및 설정값 반영
+        NEX_SIGN.SET_CONFIG_PATH('./config/config.json')
+
+        // 인증창 렌더링
         NEX_SIGN.POPUP()
     }
 </script>

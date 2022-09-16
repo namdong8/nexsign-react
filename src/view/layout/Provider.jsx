@@ -1,27 +1,25 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/redux';
-import { getProviderList, selectProvider } from '../../store/modules/providerSlice';
-import ProviderList from '../item/ProviderList';
+import { fetchGetProviderList, selectProvider } from '../../store/modules/providerSlice';
+import ProviderList from '../components/ProviderList';
 
 function Provider() {
 
   // ✅ Redux
-  const {list} = useAppSelector(selectProvider);
+  const {list, id} = useAppSelector(selectProvider);
   const dispatch = useAppDispatch();
 
   // ✅ API 통신
   const getList = async () => {
-      await dispatch(getProviderList()).unwrap()
+      await dispatch(fetchGetProviderList()).unwrap()
   }
-
-  // dispatch(getProviderList()).unwrap()
 
   // ✅ View 
   return (
     <>
       <div>
         <button onClick={getList}>인증기관 목록 조회</button>
-        <ProviderList list={list}/>
+        <ProviderList list={list} id={id}/>
       </div>
     </>
   );

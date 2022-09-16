@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEX-Sign</title>
+</head>
+<body>
+    <button id="sign" type="button">인증</button>
+    <div id="root"></div>
+</body>
+<script>
+    document.getElementById("sign").onclick = function() {
+
+        // 사용자정보 자동 기입
+        NEX_SIGN.SET_USER_JSON({
+            name: '남동훈',
+            phone: '01030431071',
+            birthday: '19880803',
+        })
+        // 인증기관 자동 선택
+        NEX_SIGN.SET_SELECT_PROVIDER_ID('kakao')
+
+        // 설정파일 경로 지정 및 설정값 반영
+        NEX_SIGN.SET_CONFIG_PATH('./config/config.json')
+
+        // 인증창 렌더링
+        NEX_SIGN.POPUP()
+    }
+</script>
+</html>
