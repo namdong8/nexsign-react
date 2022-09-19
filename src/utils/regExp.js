@@ -1,4 +1,2 @@
-const regExp = {
-
-}
+const regExp = {}
 export default regExp

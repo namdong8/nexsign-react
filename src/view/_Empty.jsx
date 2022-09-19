@@ -1,11 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 function Empty() {
-  // ✅ View 
-  return (
-    <>
-    </>
-  );
-};
+	// ✅ View
+	return <></>
+}
 
 export default Empty

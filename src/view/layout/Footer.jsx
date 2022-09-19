@@ -1,11 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 function Footer() {
-  // ✅ View 
-  return (
-    <>
-    </>
-  );
-};
+	// ✅ View
+	return <></>
+}
 
 export default Footer

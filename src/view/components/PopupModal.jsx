@@ -1,11 +1,6 @@
-import React from 'react';
-
 function PopupModal() {
-  // ✅ View 
-  return (
-    <>
-    </>
-  );
-};
+	// ✅ View
+	return <></>
+}
 
 export default PopupModal
