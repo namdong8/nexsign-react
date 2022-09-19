@@ -1,3 +1,5 @@
+import React from 'react'
+
 // ✅ Props 기본값
 UserInfo.defaultProps = {
 	test: '',

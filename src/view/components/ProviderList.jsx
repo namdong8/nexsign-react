@@ -1,3 +1,5 @@
+import React from 'react'
+
 function ProviderList(props) {
 	const { list, id } = props
 
