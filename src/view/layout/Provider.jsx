@@ -19,7 +19,7 @@ function Provider() {
 	// ✅ View
 	return (
 		<>
-			<div>
+			<div className='ns-provider'>
 				<button onClick={getList}>인증기관 목록 조회</button>
 				<ProviderList list={list} id={id} />
 			</div>

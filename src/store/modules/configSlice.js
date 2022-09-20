@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import api from '../../utils/api'
+import { setFonts } from '../../utils/cssVars'
 
 // ✅ 상태변수 초기값
 const initialState = {
@@ -21,6 +22,7 @@ export const fetchSetConfig = createAsyncThunk(
 	async (path, { rejectWithValue, dispatch }) => {
 		try {
 			const res = await api.getConfig(path)
+			setFonts(res.FONT_PATH)
 			dispatch(setConfig(res))
 		} catch (err) {
 			return rejectWithValue(err.response.data)

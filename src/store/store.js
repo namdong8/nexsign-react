@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { createLogger } from 'redux-logger'
 import providerSlice from './modules/providerSlice'
-import userinfoSlice from './modules/userinfoSlice'
+import userSlice from './modules/userSlice'
 import configSlice from './modules/configSlice'
 import certifySlice from './modules/certifySlice'
 
@@ -15,7 +15,7 @@ const initialState = {}
 // Reducer Setting - Store
 const reducer = combineReducers({
 	providerSlice,
-	userinfoSlice,
+	userSlice,
 	configSlice,
 	certifySlice,
 })

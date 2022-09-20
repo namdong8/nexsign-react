@@ -1,6 +1,6 @@
 :root {
     --popup-width: 600px;
-    --popup-hight: 400px;
+    --popup-hight: 450px;
 }
 
 .ns-block-bg{
@@ -31,4 +31,19 @@
 }
 .ns-sign header h1{
     padding: 10px 20px;
+}
+
+.ns-footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.ns-content{
+    width: 100%;
+    position: absolute;
+    top: 50px;
+}
+
+.ns-provider, .ns-user, .ns-certify{
+    padding: 10px 15px;
 }

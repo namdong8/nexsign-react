@@ -1,12 +1,16 @@
+/* eslint-disable no-extra-boolean-cast */
 import React from 'react'
-import UserInfo from '../components/UserInfo'
+import UserInfo from '../components/UserForm'
 import { useAppDispatch, useAppSelector } from '../../store/redux'
 import {
 	setName,
 	setBirthday,
 	setPhone,
 	selectUserinfo,
-} from '../../store/modules/userinfoSlice'
+	setRrn2,
+	setRrn1,
+} from '../../store/modules/userSlice'
+import regExp from '../../utils/regExp'
 
 // 사용자정보 파싱
 function User() {
@@ -15,31 +19,35 @@ function User() {
 	const dispatch = useAppDispatch()
 
 	// ✅ Functions
-	const onUpdateName = (e) => {
-		const { value } = e.target
-		// Validation Check
-		dispatch(setName(value))
+	const onUdtName = (e) => {
+		if (regExp.name(e.target.value)) dispatch(setName(e.target.value))
 	}
-	const onUpdateBirthday = (e) => {
-		const { value } = e.target
-		// Validation Check
-		dispatch(setBirthday(value))
+	const onUdtRrn1 = (e) => {
+		if (regExp.rrn1Number(e.target.value)) dispatch(setRrn1(e.target.value))
 	}
-	const onUpdatePhone = (e) => {
-		const { value } = e.target
-		// Validation Check
-		dispatch(setPhone(value))
+	const onUdtRrn2 = (e) => {
+		if (regExp.rrn2Number(e.target.value)) dispatch(setRrn2(e.target.value))
+	}
+	const onUdtBirthday = (e) => {
+		if (regExp.birthNumber(e.target.value)) dispatch(setBirthday(e.target.value))
+	}
+	const onUdtPhone = (e) => {
+		if (regExp.phoneNumber(e.target.value)) dispatch(setPhone(e.target.value))
 	}
 
 	// ✅ View
 	return (
 		<>
-			<UserInfo
-				user={user}
-				onUpdateName={onUpdateName}
-				onUpdateBirthday={onUpdateBirthday}
-				onUpdatePhone={onUpdatePhone}
-			/>
+			<div className='ns-user'>
+				<UserInfo
+					user={user}
+					onUpdateName={onUdtName}
+					onUpdateRrn1={onUdtRrn1}
+					onUpdateRrn2={onUdtRrn2}
+					onUpdateBirthday={onUdtBirthday}
+					onUpdatePhone={onUdtPhone}
+				/>
+			</div>
 		</>
 	)
 }
