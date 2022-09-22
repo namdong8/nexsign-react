@@ -20,6 +20,7 @@ const reducers = {
 }
 
 // ✅ 비동기 Thunk
+/** 인증기관 목록 조회 */
 export const fetchGetProviderList = createAsyncThunk(
 	'provider/fetchGetProviderList',
 	async (v, { rejectWithValue, getState, dispatch }) => {

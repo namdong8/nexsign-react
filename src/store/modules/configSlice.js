@@ -17,6 +17,7 @@ const reducers = {
 }
 
 // ✅ 비동기 Thunk
+/** 외부에서 들어온 Config File Data Parsing */
 export const fetchSetConfig = createAsyncThunk(
 	'config/fetchSetConfig',
 	async (path, { rejectWithValue, dispatch }) => {

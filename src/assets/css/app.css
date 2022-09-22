@@ -28,6 +28,7 @@
 }
 .ns-sign header h1{
     padding: 10px 20px;
+    float: left;
 }
 
 .ns-footer{
