@@ -23,12 +23,12 @@ const reducers = {
 // ✅ 비동기 Thunk
 /** 인증요청 */
 export const fetchAuthRequest = createAsyncThunk(
-	'certifySlice/fetchAuthRequest',
+	'certify/fetchAuthRequest',
 	async (v, { rejectWithValue, getState, dispatch }) => {
 		try {
 			dispatch(setLoading(true))
-			const API_CONTEXT_URL = getState().configSlice.API_CONTEXT_URL
-			const userJson = getState().userSlice
+			const API_CONTEXT_URL = getState().config.API_CONTEXT_URL
+			const userJson = getState().user
 			const res = await api.authRequest(API_CONTEXT_URL, userJson)
 			if (!res.data) {
 				dispatch(setErrorContents('시스템 에러'))
@@ -45,12 +45,12 @@ export const fetchAuthRequest = createAsyncThunk(
 )
 /** 인증확인 */
 export const fetchAuthConfirm = createAsyncThunk(
-	'certifySlice/fetchAuthConfirm',
+	'certify/fetchAuthConfirm',
 	async (v, { rejectWithValue, getState, dispatch }) => {
 		try {
 			dispatch(setLoading(true))
-			const API_CONTEXT_URL = getState().configSlice.API_CONTEXT_URL
-			const userJson = getState().userSlice
+			const API_CONTEXT_URL = getState().config.API_CONTEXT_URL
+			const userJson = getState().user
 			const res = await api.authConfirm(API_CONTEXT_URL, userJson)
 			if (!res.data) {
 				dispatch(setErrorContents('시스템 에러'))
@@ -67,7 +67,7 @@ export const fetchAuthConfirm = createAsyncThunk(
 )
 /** 인증 통신 에러 테스트 */
 export const fetchTest = createAsyncThunk(
-	'certifySlice/fetchTest',
+	'certify/fetchTest',
 	async (v, { rejectWithValue, dispatch }) => {
 		try {
 			dispatch(setLoading(true))
@@ -86,10 +86,10 @@ export const fetchTest = createAsyncThunk(
 
 // ✅ redux toolkit 설정
 export const certifySlice = createSlice({
-	name: 'certifySlice',
+	name: 'certify',
 	initialState,
 	reducers,
 })
 export const { setAuthRequestJson, setAuthConfirmJson } = certifySlice.actions
-export const selectCertify = (state) => state.certifySlice
+export const selectCertify = (state) => state.certify
 export default certifySlice.reducer

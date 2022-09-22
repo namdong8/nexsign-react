@@ -16,10 +16,10 @@ const reducers = {
 
 // ✅ redux toolkit 설정
 const systemSlice = createSlice({
-	name: 'systemSlice', // 해당 모듈 이름
+	name: 'system', // 해당 모듈 이름
 	initialState, // 모듈 상태 초기화
 	reducers, // 리듀서 작성
 })
 export const { setLoading } = systemSlice.actions
-export const selectSystem = (state) => state.systemSlice
+export const selectSystem = (state) => state.system
 export default systemSlice.reducer

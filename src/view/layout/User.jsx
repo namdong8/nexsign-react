@@ -1,12 +1,12 @@
 /* eslint-disable no-extra-boolean-cast */
 import React from 'react'
 import UserInfo from '../components/UserForm'
-import { useAppDispatch, useAppSelector } from '../../store/redux'
+import { useAppDispatch, useAppSelector } from '../../store/hook'
 import {
 	setName,
 	setBirthday,
 	setPhone,
-	selectUserinfo,
+	selectUser,
 	setRrn2,
 	setRrn1,
 } from '../../store/modules/userSlice'
@@ -15,7 +15,7 @@ import regExp from '../../utils/regExp'
 // 사용자정보 파싱
 function User() {
 	// ✅ Redux
-	const user = useAppSelector(selectUserinfo)
+	const user = useAppSelector(selectUser)
 	const dispatch = useAppDispatch()
 
 	// ✅ Functions

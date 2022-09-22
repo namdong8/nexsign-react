@@ -67,11 +67,11 @@ const extraReducers = (builder) => {
 // createSlice는 createAction과 createReducer() 를 한번에 사용한 것
 // 액션 생성자, 액션 타입, 리듀서를 자동으로 생성
 const templateSlice = createSlice({
-	name: 'templateSlice', // 해당 모듈 이름
+	name: 'template', // 해당 모듈 이름
 	initialState, // 모듈 상태 초기화
 	reducers, // 리듀서 작성
 	extraReducers,
 })
 export const { addCount, minusCount } = templateSlice.actions
-export const selectTemplate = (state) => state.templateSlice
+export const selectTemplate = (state) => state.template
 export default templateSlice.reducer

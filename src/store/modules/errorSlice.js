@@ -31,11 +31,11 @@ const reducers = {
 
 // ✅ redux toolkit 설정
 const errorSlice = createSlice({
-	name: 'errorSlice',
+	name: 'error',
 	initialState,
 	reducers,
 })
 export const { setError, hidePopup, setErrorContents, setWarringContents } =
 	errorSlice.actions
-export const selectError = (state) => state.errorSlice
+export const selectError = (state) => state.error
 export default errorSlice.reducer

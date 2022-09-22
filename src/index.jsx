@@ -22,7 +22,7 @@ export function SET_USER_JSON(json) {
 export function SET_SELECT_PROVIDER_ID(json) {
 	store.dispatch(setProviderId(json))
 }
-/** ✅ Config File 셋팅 */
+/** ✅ System 셋팅 */
 export function SET_CONFIG_PATH(path) {
 	// 외부 설정파일 Config 셋팅
 	store.dispatch(fetchSetConfig(path))

@@ -6,7 +6,7 @@ import {
 	fetchTest,
 	selectCertify,
 } from '../../store/modules/certifySlice'
-import { useAppDispatch, useAppSelector } from '../../store/redux'
+import { useAppDispatch, useAppSelector } from '../../store/hook'
 
 /** 인증요청, 인증확인 */
 function CertifySubmit() {

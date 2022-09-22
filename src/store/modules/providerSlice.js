@@ -21,11 +21,11 @@ const reducers = {
 
 // ✅ 비동기 Thunk
 export const fetchGetProviderList = createAsyncThunk(
-	'providerSlice/fetchGetProviderList',
+	'provider/fetchGetProviderList',
 	async (v, { rejectWithValue, getState, dispatch }) => {
 		try {
 			dispatch(setLoading(true))
-			const API_CONTEXT_URL = getState().configSlice.API_CONTEXT_URL
+			const API_CONTEXT_URL = getState().config.API_CONTEXT_URL
 			const res = await api.getProviderList(API_CONTEXT_URL)
 			if (!res.data) {
 				dispatch(setErrorContents('시스템 에러'))
@@ -43,10 +43,10 @@ export const fetchGetProviderList = createAsyncThunk(
 
 // ✅ redux toolkit 설정
 const providerSlice = createSlice({
-	name: 'providerSlice', // 해당 모듈 이름
+	name: 'provider', // 해당 모듈 이름
 	initialState, // 모듈 상태 초기화
 	reducers, // 리듀서 작성
 })
 export const { setProviderId, setList } = providerSlice.actions
-export const selectProvider = (state) => state.providerSlice
+export const selectProvider = (state) => state.provider
 export default providerSlice.reducer

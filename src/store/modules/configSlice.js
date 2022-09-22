@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import api from '../../utils/api'
+import { setFonts } from '../../utils/cssVars'
 
 // ✅ 상태변수 초기값
 const initialState = {
@@ -17,10 +18,11 @@ const reducers = {
 
 // ✅ 비동기 Thunk
 export const fetchSetConfig = createAsyncThunk(
-	'configSlice/fetchSetConfig',
+	'config/fetchSetConfig',
 	async (path, { rejectWithValue, dispatch }) => {
 		try {
 			const res = await api.getConfig(path)
+			setFonts(res.data.FONT_PATH)
 			dispatch(setConfig(res.data))
 		} catch (err) {
 			return rejectWithValue(err.response.data)
@@ -30,10 +32,10 @@ export const fetchSetConfig = createAsyncThunk(
 
 // ✅ redux toolkit 설정
 const configSlice = createSlice({
-	name: 'configSlice',
+	name: 'config',
 	initialState,
 	reducers,
 })
 export const { setConfig } = configSlice.actions
-export const selectConfig = (state) => state.configSlice
+export const selectConfig = (state) => state.config
 export default configSlice.reducer

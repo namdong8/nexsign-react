@@ -1,6 +1,6 @@
 import React from 'react'
 import { hidePopup, selectError } from '../../store/modules/errorSlice'
-import { useAppDispatch, useAppSelector } from '../../store/redux'
+import { useAppDispatch, useAppSelector } from '../../store/hook'
 
 function ErrorModal() {
 	// ✅ Redux Hook

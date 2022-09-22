@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useCallback } from 'react'
-import { useAppDispatch, useAppSelector } from '../store/redux'
+import { useAppDispatch, useAppSelector } from '../store/hook'
 import { addCount, getTemplate, selectTemplate } from '../store/_templateSlice'
 
 function Template() {

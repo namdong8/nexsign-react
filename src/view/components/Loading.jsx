@@ -1,6 +1,6 @@
 import React from 'react'
 import { selectSystem } from '../../store/modules/systemSlice'
-import { useAppSelector } from '../../store/redux'
+import { useAppSelector } from '../../store/hook'
 import loading from '../../assets/img/loading.gif'
 
 function Loading() {
