@@ -17,8 +17,7 @@ const api = {
 	/** 인증기관 목록 조회 */
 	getProviderList: async (rootPath) => {
 		try {
-			const res = await axios.get(rootPath + GET_PROVIDER_LIST_URL)
-			return res.data
+			return await axios.get(rootPath + GET_PROVIDER_LIST_URL)
 		} catch (Error) {
 			console.log(Error)
 		}
@@ -26,8 +25,7 @@ const api = {
 	/** 인증요청 */
 	authRequest: async (rootPath, json) => {
 		try {
-			const res = await axios.post(rootPath + POST_AUTH_REQUEST, json, HEADER)
-			return res.data
+			return await axios.post(rootPath + POST_AUTH_REQUEST, json, HEADER)
 		} catch (Error) {
 			console.log(Error)
 		}
@@ -35,16 +33,14 @@ const api = {
 	/** 인증확인 요청 */
 	authConfirm: async (rootPath, json) => {
 		try {
-			const res = await axios.post(rootPath + POST_AUTH_CONFIRM, json, HEADER)
-			return res.data
+			return await axios.post(rootPath + POST_AUTH_CONFIRM, json, HEADER)
 		} catch (Error) {
 			console.log(Error)
 		}
 	},
 	getConfig: async (path) => {
 		try {
-			const res = await axios.get(path)
-			return res.data
+			return await axios.get(path)
 		} catch (Error) {
 			console.log(Error)
 		}

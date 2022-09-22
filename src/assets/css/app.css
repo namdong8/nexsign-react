@@ -3,7 +3,7 @@
     --popup-hight: 450px;
 }
 
-.ns-block-bg{
+.ns-app-bg{
     position: fixed;
     top:0; left: 0; bottom: 0; right: 0;
     background: rgba(0, 0, 0, 0.6);
@@ -13,9 +13,6 @@
     top: 50vh;
     left: 50vw;
     background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border-radius: 5px;
     width: var(--popup-width);
     height: var(--popup-hight);
@@ -34,7 +31,7 @@
 }
 
 .ns-footer{
-    position: fixed;
+    position: absolute;
     bottom: 0;
     width: 100%;
 }
@@ -46,4 +43,44 @@
 
 .ns-provider, .ns-user, .ns-certify{
     padding: 10px 15px;
+}
+
+.ns-error{
+    background: white;
+    z-index: 1000;
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-55%);
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+}
+.ns-error-bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgb(48 48 48 / 60%);
+    z-index: 10;
+}
+
+.ns-loading{
+    display: flex;
+    width: var(--popup-width);
+    height: var(--popup-hight);
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%,-55%);
+    z-index: 10;
+}
+.ns-loading img{
+    width: 50px;
 }

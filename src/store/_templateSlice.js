@@ -24,10 +24,10 @@ const reducers = {
 	},
 }
 
-// ✅ API 비동기 통신샤롯데
+// ✅ API 비동기
 export const getTemplate = createAsyncThunk(
 	// string action type value: 이 값에 따라 pending, fulfilled, rejected가 붙은 액션 타입이 생성된다.
-	'template/getTemplate',
+	'templateSlice/getTemplate',
 	// payloadCreator callback: 비동기 로직의 결과를 포함하고 있는 프로미스를 반환하는 비동기 함수
 	async (id, { rejectWithValue }) => {
 		try {
@@ -67,7 +67,7 @@ const extraReducers = (builder) => {
 // createSlice는 createAction과 createReducer() 를 한번에 사용한 것
 // 액션 생성자, 액션 타입, 리듀서를 자동으로 생성
 const templateSlice = createSlice({
-	name: 'template', // 해당 모듈 이름
+	name: 'templateSlice', // 해당 모듈 이름
 	initialState, // 모듈 상태 초기화
 	reducers, // 리듀서 작성
 	extraReducers,

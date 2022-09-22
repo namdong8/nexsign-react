@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import api from '../../utils/api'
+import { setErrorContents } from './errorSlice'
+import { setLoading } from './systemSlice'
 
 // ✅ 상태변수 초기값
 const initialState = {
@@ -22,10 +24,18 @@ export const fetchGetProviderList = createAsyncThunk(
 	'providerSlice/fetchGetProviderList',
 	async (v, { rejectWithValue, getState, dispatch }) => {
 		try {
+			dispatch(setLoading(true))
 			const API_CONTEXT_URL = getState().configSlice.API_CONTEXT_URL
-			const list = await api.getProviderList(API_CONTEXT_URL)
-			dispatch(setList(list))
+			const res = await api.getProviderList(API_CONTEXT_URL)
+			if (!res.data) {
+				dispatch(setErrorContents('시스템 에러'))
+			} else {
+				dispatch(setList(res.data))
+			}
+			dispatch(setLoading(false))
 		} catch (err) {
+			dispatch(setErrorContents('네트워크 에러'))
+			dispatch(setLoading(false))
 			return rejectWithValue(err.response.data)
 		}
 	},
