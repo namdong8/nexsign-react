@@ -46,6 +46,6 @@ const systemSlice = createSlice({
 	initialState, // 모듈 상태 초기화
 	reducers, // 리듀서 작성
 })
-export const { setLoading, setOpenApp } = systemSlice.actions
+export const { setLoading, setOpenApp, setDeviceCode } = systemSlice.actions
 export const selectSystem = (state) => state.system
 export default systemSlice.reducer

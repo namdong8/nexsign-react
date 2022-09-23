@@ -26,8 +26,6 @@ const reducer = combineReducers({
 const devMiddleware = (getDefaultMiddleware) => {
 	return getDefaultMiddleware({
 		// serializableCheck: false,
-		// immutableCheck: { warnAfter: 128 },
-		// serializableCheck: { warnAfter: 128 },
 	})
 		.concat(logger)
 		.concat(require('redux-immutable-state-invariant').default())
@@ -37,10 +35,7 @@ const prodMiddleware = (getDefaultMiddleware) => {
 }
 
 const store = configureStore({
-	reducer, // 리덕스 스토어의 rootReducer를 설정.
-	// redux-logger와 같은 리덕스 미들웨어를 설정.
-	// 미들웨어를 설정한 경우엔 자동으로 applyMiddleware에 전달.
-	// 미들웨어를 설정하지 않은 경우엔 getDefaultMiddleware를 호출.
+	reducer,
 	middleware: isDev ? devMiddleware : prodMiddleware,
 	devTools: isDev, // Redux DevTools 사용 여부 설정. (기본값은 true)
 	preloadedState: initialState, // 리덕스 스토어의 초기값 설정.Config
