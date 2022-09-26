@@ -16,7 +16,7 @@ function Template() {
 	// ✅ API 통신
 	const testAPI = async (id) => {
 		try {
-			const user = await dispatch(getTemplate(id)).unwrap()
+			const user = await dispatch(getTemplate())
 			// Success
 		} catch (err) {
 			// Error

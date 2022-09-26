@@ -13,7 +13,7 @@ function Provider() {
 
 	// ✅ API 통신
 	const getList = async () => {
-		await dispatch(fetchGetProviderList()).unwrap()
+		await dispatch(fetchGetProviderList())
 	}
 
 	// ✅ View

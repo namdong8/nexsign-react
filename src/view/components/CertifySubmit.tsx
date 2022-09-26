@@ -15,13 +15,13 @@ function CertifySubmit() {
 
 	// ✅ API 통신
 	const authRequest = async () => {
-		await dispatch(fetchAuthRequest()).unwrap()
+		await dispatch(fetchAuthRequest())
 	}
 	const authConfirm = async () => {
-		await dispatch(fetchAuthConfirm()).unwrap()
+		await dispatch(fetchAuthConfirm())
 	}
 	const test = async () => {
-		await dispatch(fetchTest()).unwrap()
+		await dispatch(fetchTest())
 	}
 	// ✅ View
 	return (
