@@ -1,5 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+export interface ErrorState {
+	title: string
+	contents: string
+	isError: boolean
+}
 // ✅ 상태변수 초기값
 const initialState = {
 	title: 'Error',
@@ -9,22 +14,22 @@ const initialState = {
 
 // ✅ Reducer 선언
 const reducers = {
-	setError: (state, action) => {
+	setError: (state: ErrorState, action: PayloadAction<ErrorState>) => {
 		state.title = action.payload.title
 		state.contents = action.payload.contents
 		state.isError = true
 	},
-	setErrorContents: (state, action) => {
-		state.contents = 'Error'
+	setErrorContents: (state: ErrorState, action: PayloadAction<string>) => {
+		state.title = 'Error'
 		state.contents = action.payload
 		state.isError = true
 	},
-	setWarringContents: (state, action) => {
-		state.contents = 'Warring'
+	setWarringContents: (state: ErrorState, action: PayloadAction<string>) => {
+		state.title = 'Warring'
 		state.contents = action.payload
 		state.isError = true
 	},
-	hidePopup: (state) => {
+	hidePopup: (state: ErrorState) => {
 		state.isError = false
 	},
 }

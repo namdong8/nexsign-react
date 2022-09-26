@@ -1,7 +1,14 @@
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable no-undef */
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import MobileDetect from 'mobile-detect'
+import { setErrorContents } from './errorSlice'
+
+export interface SystemState {
+	deviceCode: string
+	isLoading: boolean
+	isApp: boolean
+}
 
 // ✅ 상태변수 초기값
 const initialState = {
@@ -12,13 +19,13 @@ const initialState = {
 
 // ✅ Reducer 선언
 const reducers = {
-	setLoading: (state, action) => {
+	setLoading: (state: SystemState, action: PayloadAction<boolean>) => {
 		state.isLoading = action.payload
 	},
-	setDeviceCode: (state, action) => {
+	setDeviceCode: (state: SystemState, action: PayloadAction<string>) => {
 		state.deviceCode = action.payload
 	},
-	setOpenApp: (state, action) => {
+	setOpenApp: (state: SystemState, action: PayloadAction<boolean>) => {
 		state.isApp = action.payload
 	},
 }
@@ -29,9 +36,9 @@ export const setSystemInit = createAsyncThunk(
 	'system/setSystemInit',
 	async (v, { rejectWithValue, dispatch }) => {
 		try {
-			dispatch(setOpenApp(true))
+			// dispatch(setOpenApp(true))
 			const md = new MobileDetect(window.navigator.userAgent)
-			let code = !!md.mobile() ? 'MO' : !!md.tablet() ? 'TB' : 'PC'
+			const code = !!md.mobile() ? 'MO' : !!md.tablet() ? 'TB' : 'PC'
 			dispatch(setDeviceCode(code))
 		} catch (err) {
 			dispatch(setErrorContents('시스템 에러'))

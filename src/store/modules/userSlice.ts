@@ -1,7 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+export interface UserState {
+	name: string
+	rrn1: string
+	rrn2: string
+	phone: string
+	birthday: string
+}
 
 // ✅ 상태변수 초기값
-const initialState = {
+const initialState: UserState = {
 	name: '',
 	rrn1: '',
 	rrn2: '',
@@ -11,24 +19,24 @@ const initialState = {
 
 // ✅ Reducer 선언
 const reducers = {
-	setUser: (state, action) => {
+	setUser: (state: UserState, action: PayloadAction<UserState>) => {
 		state.name = action.payload.name
 		state.phone = action.payload.phone
 		state.birthday = action.payload.birthday
 	},
-	setName: (state, action) => {
+	setName: (state: UserState, action: PayloadAction<string>) => {
 		state.name = action.payload
 	},
-	setRrn1: (state, action) => {
+	setRrn1: (state: UserState, action: PayloadAction<string>) => {
 		state.rrn1 = action.payload
 	},
-	setRrn2: (state, action) => {
+	setRrn2: (state: UserState, action: PayloadAction<string>) => {
 		state.rrn2 = action.payload
 	},
-	setBirthday: (state, action) => {
+	setBirthday: (state: UserState, action: PayloadAction<string>) => {
 		state.birthday = action.payload
 	},
-	setPhone: (state, action) => {
+	setPhone: (state: UserState, action: PayloadAction<string>) => {
 		state.phone = action.payload
 	},
 }

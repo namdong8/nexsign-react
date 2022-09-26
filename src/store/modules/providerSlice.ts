@@ -1,20 +1,27 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { JSONArray } from '../../@types/type'
 import api from '../../utils/api'
+import { ConfigState } from './configSlice'
 import { setErrorContents } from './errorSlice'
 import { setLoading } from './systemSlice'
 
+export interface ProviderState {
+	id: string
+	list: JSONArray
+}
+
 // ✅ 상태변수 초기값
-const initialState = {
+const initialState: ProviderState = {
 	id: '',
 	list: [],
 }
 
 // ✅ Reducer 선언 ( export 에 등록 필요)
 const reducers = {
-	setProviderId: (state, action) => {
+	setProviderId: (state: ProviderState, action: PayloadAction<string>) => {
 		state.id = action.payload
 	},
-	setList: (state, action) => {
+	setList: (state: ProviderState, action: PayloadAction<JSONArray>) => {
 		state.list = action.payload
 	},
 }
@@ -26,7 +33,8 @@ export const fetchGetProviderList = createAsyncThunk(
 	async (v, { rejectWithValue, getState, dispatch }) => {
 		try {
 			dispatch(setLoading(true))
-			const API_CONTEXT_URL = getState().config.API_CONTEXT_URL
+			const { config } = getState() as { config: ConfigState }
+			const API_CONTEXT_URL = config.API_CONTEXT_URL
 			const res = await api.getProviderList(API_CONTEXT_URL)
 			if (!res.data) {
 				dispatch(setErrorContents('시스템 에러'))

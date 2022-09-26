@@ -1,9 +1,16 @@
 /* eslint-disable no-undef */
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { JSONObject } from '../../@types/type'
 import api from '../../utils/api'
+import { ConfigState } from './configSlice'
 import { setErrorContents } from './errorSlice'
 import { setLoading } from './systemSlice'
+import { UserState } from './userSlice'
 
+export interface CertifyState {
+	authRequestJson: JSONObject
+	authConfirmJson: JSONObject
+}
 // ✅ 상태변수 초기값
 const initialState = {
 	authRequestJson: {},
@@ -12,10 +19,16 @@ const initialState = {
 
 // ✅ Reducer 선언
 const reducers = {
-	setAuthRequestJson: (state, action) => {
+	setAuthRequestJson: (
+		state: CertifyState,
+		action: PayloadAction<JSONObject>,
+	) => {
 		state.authRequestJson = action.payload
 	},
-	setAuthConfirmJson: (state, action) => {
+	setAuthConfirmJson: (
+		state: CertifyState,
+		action: PayloadAction<JSONObject>,
+	) => {
 		state.authConfirmJson = action.payload
 	},
 }
@@ -27,9 +40,18 @@ export const fetchAuthRequest = createAsyncThunk(
 	async (v, { rejectWithValue, getState, dispatch }) => {
 		try {
 			dispatch(setLoading(true))
-			const API_CONTEXT_URL = getState().config.API_CONTEXT_URL
-			const userJson = getState().user
-			const res = await api.authRequest(API_CONTEXT_URL, userJson)
+
+			const { config } = getState() as { config: ConfigState }
+			const { user } = getState() as { user: UserState }
+			const API_CONTEXT_URL = config.API_CONTEXT_URL
+			const json = {
+				name: user.name,
+				birthday: user.birthday,
+				phone: user.phone,
+				rrn1: user.rrn1,
+				rrn2: user.rrn2,
+			}
+			const res = await api.authRequest(API_CONTEXT_URL, json)
 			if (!res.data) {
 				dispatch(setErrorContents('시스템 에러'))
 			} else {
@@ -49,9 +71,18 @@ export const fetchAuthConfirm = createAsyncThunk(
 	async (v, { rejectWithValue, getState, dispatch }) => {
 		try {
 			dispatch(setLoading(true))
-			const API_CONTEXT_URL = getState().config.API_CONTEXT_URL
-			const userJson = getState().user
-			const res = await api.authConfirm(API_CONTEXT_URL, userJson)
+
+			const { config } = getState() as { config: ConfigState }
+			const { user } = getState() as { user: UserState }
+			const API_CONTEXT_URL = config.API_CONTEXT_URL
+			const json = {
+				name: user.name,
+				birthday: user.birthday,
+				phone: user.phone,
+				rrn1: user.rrn1,
+				rrn2: user.rrn2,
+			}
+			const res = await api.authConfirm(API_CONTEXT_URL, json)
 			if (!res.data) {
 				dispatch(setErrorContents('시스템 에러'))
 			} else {

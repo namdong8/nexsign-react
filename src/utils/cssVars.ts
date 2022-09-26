@@ -1,6 +1,6 @@
 import cssVars from 'css-vars-ponyfill'
 
-export function setFonts(FONT_PATH) {
+export function setFonts(FONT_PATH: string) {
 	// CSS
 	cssVars({
 		onlyLegacy: false,

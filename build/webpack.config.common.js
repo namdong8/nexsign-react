@@ -5,10 +5,10 @@ module.exports = {
 	name: 'React-webpack-setting', // 웹팩 설정 이름
 	devtool: 'eval',
 	entry: {
-		app: ['./src/index.jsx'],
+		app: ['./src/index.tsx'],
 	},
 	resolve: {
-		extensions: ['.js', '.jsx'],
+		extensions: ['.js', '.jsx', '.ts', '.tsx'],
 	},
 	output: {
 		path: path.join(__dirname, '../dist'),
@@ -31,7 +31,11 @@ module.exports = {
 				exclude: /node_module/,
 				loader: 'babel-loader',
 				options: {
-					presets: ['@babel/preset-env', '@babel/preset-react'],
+					presets: [
+						'@babel/preset-env',
+						'@babel/preset-react',
+						'@babel/preset-typescript',
+					],
 				},
 			},
 			{

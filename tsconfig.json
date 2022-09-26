@@ -1,0 +1,13 @@
+{
+  "include": ["src"],
+  "compilerOptions": {
+    "typeRoots": ["src/@types", "node_modules/@types"],
+    "baseUrl": "src",
+		"jsx": "react",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "target": "ES6",
+    "lib": ["ES6", "DOM"]
+  }
+}

@@ -6,10 +6,10 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import App from './App'
 import store from './store/store'
-import { setUser } from './store/modules/userSlice'
+import { setUser, UserState } from './store/modules/userSlice'
 import { setProviderId } from './store/modules/providerSlice'
-import { fetchSetConfig } from './store/modules/configSlice'
-import { setSystemInit } from './store/modules/systemSlice'
+import { setConfigPath } from './store/modules/configSlice'
+import { setOpenApp } from './store/modules/systemSlice'
 
 // CSS Load
 import './assets/css/common.css'
@@ -18,19 +18,20 @@ import './assets/css/fonts.css'
 
 let container = null
 
+// const dispatch = store.dispatch
+
 /** ✅ 사용자정보 자동 기입 */
-export function SET_USER_JSON(json) {
+export function SET_USER_JSON(json: UserState) {
 	store.dispatch(setUser(json))
 }
 /** ✅ 인증기관 자동 선택 */
-export function SET_SELECT_PROVIDER_ID(json) {
-	store.dispatch(setProviderId(json))
+export function SET_SELECT_PROVIDER_ID(id: string) {
+	store.dispatch(setProviderId(id))
 }
 /** ✅ System 셋팅 */
-export function SET_CONFIG(path) {
-	// 외부 설정파일 Config 셋팅
-	store.dispatch(fetchSetConfig(path))
-	store.dispatch(setSystemInit())
+export function SET_CONFIG(path: string) {
+	// 외부 설정파일 경로 설정
+	store.dispatch(setConfigPath(path))
 }
 
 /** ✅ 인증창 팝업 */
@@ -43,6 +44,8 @@ export async function POPUP() {
 			</Provider>,
 		)
 	}
+	// 팝업 표시
+	store.dispatch(setOpenApp(true))
 }
 
 export const CONFIG = {

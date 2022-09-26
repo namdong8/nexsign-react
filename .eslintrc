@@ -1,8 +1,9 @@
 {
   "root": true,
-  "plugins": ["prettier"],
-  "parser": "@babel/eslint-parser",
+  "plugins": ["prettier", "import"],
+  "parser": "@typescript-eslint/parser",
   "extends": [
+    "plugin:@typescript-eslint/recommended",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended"
@@ -23,6 +24,7 @@
     "es2021": true
   },
   "parserOptions": {
+    "project": "./tsconfig.json",
     "requireConfigFile": false,
     "babelOptions": {
       "presets": ["@babel/preset-react"]

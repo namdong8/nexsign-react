@@ -1,7 +1,13 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+export interface TemplateState {
+	name: string
+	count: number
+	value: number
+}
 
 // ✅ 상태변수 초기값
-const initialState = {
+const initialState: TemplateState = {
 	name: 'test',
 	count: 0,
 	value: 0,
@@ -12,15 +18,14 @@ const initialState = {
 const reducers = {
 	// Reducer에는 여러 액션을 정의
 	// 액션 타입은 슬라이스 이름을 접두어로 사용해서 자동 생성 -> 'providerReducer/addCount'
-	addCount: (state, action) => {
-		// const { name, count } = action.payload
+	addCount: (state: TemplateState, action: PayloadAction<number>) => {
 		state.value = action.payload
 	},
-	minusCount: (state, action) => {
+	minusCount: (state: TemplateState, action: PayloadAction<number>) => {
 		state.value = action.payload
 	},
-	init: (state) => {
-		state.value = initialState
+	init: (state: TemplateState, action: PayloadAction<number>) => {
+		state.value = action.payload
 	},
 }
 

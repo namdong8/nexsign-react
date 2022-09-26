@@ -1,18 +1,28 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import api from '../../utils/api'
 import { setFonts } from '../../utils/cssVars'
 
+export interface ConfigState {
+	CONFIG_FILE_PATH: string
+	FONT_PATH: string
+	API_CONTEXT_URL: string
+}
+
 // ✅ 상태변수 초기값
-const initialState = {
+const initialState: ConfigState = {
 	FONT_PATH: '',
 	API_CONTEXT_URL: '',
+	CONFIG_FILE_PATH: '',
 }
 
 // ✅ Reducer 선언
 const reducers = {
-	setConfig: (state, action) => {
+	setConfig: (state: ConfigState, action: PayloadAction<ConfigState>) => {
 		state.FONT_PATH = action.payload.FONT_PATH
 		state.API_CONTEXT_URL = action.payload.API_CONTEXT_URL
+	},
+	setConfigPath: (state: ConfigState, action: PayloadAction<string>) => {
+		state.CONFIG_FILE_PATH = action.payload
 	},
 }
 
@@ -20,9 +30,10 @@ const reducers = {
 /** 외부에서 들어온 Config File Data Parsing */
 export const fetchSetConfig = createAsyncThunk(
 	'config/fetchSetConfig',
-	async (path, { rejectWithValue, dispatch }) => {
+	async (v, { rejectWithValue, dispatch, getState }) => {
 		try {
-			const res = await api.getConfig(path)
+			const { config } = getState() as { config: ConfigState }
+			const res = await api.getConfig(config.CONFIG_FILE_PATH)
 			setFonts(res.data.FONT_PATH)
 			dispatch(setConfig(res.data))
 		} catch (err) {
@@ -37,6 +48,6 @@ const configSlice = createSlice({
 	initialState,
 	reducers,
 })
-export const { setConfig } = configSlice.actions
+export const { setConfig, setConfigPath } = configSlice.actions
 export const selectConfig = (state) => state.config
 export default configSlice.reducer
