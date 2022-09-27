@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import api from '../../utils/api'
 import { setFonts } from '../../utils/cssVars'
+import { setErrorPopupMessage } from './errorSlice'
+import { setOpenApp } from './systemSlice'
 
 export interface ConfigState {
 	CONFIG_FILE_PATH: string
@@ -24,20 +26,52 @@ const reducers = {
 	setConfigPath: (state: ConfigState, action: PayloadAction<string>) => {
 		state.CONFIG_FILE_PATH = action.payload
 	},
+	initConfig: (state: ConfigState) => {
+		Object.assign(state, initialState)
+	},
 }
 
 // ✅ 비동기 Thunk
 /** 외부에서 들어온 Config File Data Parsing */
 export const fetchSetConfig = createAsyncThunk(
 	'config/fetchSetConfig',
-	async (v, { rejectWithValue, dispatch, getState }) => {
+	async (v, { dispatch, getState }) => {
 		try {
 			const { config } = getState() as { config: ConfigState }
-			const res = await api.getConfig(config.CONFIG_FILE_PATH)
-			setFonts(res.data.FONT_PATH)
-			dispatch(setConfig(res.data))
+			const res = (await api.getConfig(config.CONFIG_FILE_PATH)).data
+			if (typeof res === 'string') {
+				dispatch(setOpenApp(false))
+				dispatch(setErrorPopupMessage('설정 에러'))
+			} else {
+				setFonts(res.FONT_PATH)
+				dispatch(setConfig(res))
+				dispatch(setOpenApp(true))
+			}
 		} catch (err) {
-			return rejectWithValue(err.response.data)
+			dispatch(setOpenApp(false))
+			dispatch(setErrorPopupMessage('설정 에러'))
+		}
+	},
+)
+
+/** 설정 Parsing 에러 */
+export const fetchSetTest = createAsyncThunk(
+	'config/fetchSetConfig',
+	async (v, { dispatch, getState }) => {
+		try {
+			const { config } = getState() as { config: ConfigState }
+			const res = (await api.getConfig(config.CONFIG_FILE_PATH + 1)).data
+			if (typeof res === 'string') {
+				dispatch(setOpenApp(false))
+				dispatch(setErrorPopupMessage('설정 에러'))
+			} else {
+				setFonts(res.FONT_PATH)
+				dispatch(setConfig(res))
+				dispatch(setOpenApp(true))
+			}
+		} catch (err) {
+			dispatch(setOpenApp(false))
+			dispatch(setErrorPopupMessage('설정 에러'))
 		}
 	},
 )
@@ -48,6 +82,6 @@ const configSlice = createSlice({
 	initialState,
 	reducers,
 })
-export const { setConfig, setConfigPath } = configSlice.actions
-export const selectConfig = (state) => state.config
+export const { setConfig, setConfigPath, initConfig } = configSlice.actions
+export const selectConfig = (state: { config: ConfigState }) => state.config
 export default configSlice.reducer

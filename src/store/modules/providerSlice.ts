@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import message from '../../utils/message'
 import { JSONArray } from '../../@types/type'
 import api from '../../utils/api'
 import { ConfigState } from './configSlice'
-import { setErrorContents } from './errorSlice'
+import { setErrorPopupMessage } from './errorSlice'
 import { setLoading } from './systemSlice'
 
 export interface ProviderState {
@@ -24,28 +25,30 @@ const reducers = {
 	setList: (state: ProviderState, action: PayloadAction<JSONArray>) => {
 		state.list = action.payload
 	},
+	initProvider: (state: ProviderState) => {
+		Object.assign(state, initialState)
+	},
 }
 
 // ✅ 비동기 Thunk
 /** 인증기관 목록 조회 */
 export const fetchGetProviderList = createAsyncThunk(
 	'provider/fetchGetProviderList',
-	async (v, { rejectWithValue, getState, dispatch }) => {
+	async (v, { getState, dispatch }) => {
 		try {
 			dispatch(setLoading(true))
 			const { config } = getState() as { config: ConfigState }
 			const API_CONTEXT_URL = config.API_CONTEXT_URL
 			const res = await api.getProviderList(API_CONTEXT_URL)
 			if (!res.data) {
-				dispatch(setErrorContents('시스템 에러'))
+				dispatch(setErrorPopupMessage(message.ERROR.SYSTEM))
 			} else {
 				dispatch(setList(res.data))
 			}
 			dispatch(setLoading(false))
 		} catch (err) {
-			dispatch(setErrorContents('네트워크 에러'))
+			dispatch(setErrorPopupMessage(message.ERROR.NETWORK))
 			dispatch(setLoading(false))
-			return rejectWithValue(err.response.data)
 		}
 	},
 )
@@ -56,6 +59,7 @@ const providerSlice = createSlice({
 	initialState, // 모듈 상태 초기화
 	reducers, // 리듀서 작성
 })
-export const { setProviderId, setList } = providerSlice.actions
-export const selectProvider = (state) => state.provider
+export const { setProviderId, setList, initProvider } = providerSlice.actions
+export const selectProvider = (state: { provider: ProviderState }) =>
+	state.provider
 export default providerSlice.reducer

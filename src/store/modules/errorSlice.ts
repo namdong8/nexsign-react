@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface ErrorState {
 	title: string
@@ -19,7 +19,7 @@ const reducers = {
 		state.contents = action.payload.contents
 		state.isError = true
 	},
-	setErrorContents: (state: ErrorState, action: PayloadAction<string>) => {
+	setErrorPopupMessage: (state: ErrorState, action: PayloadAction<string>) => {
 		state.title = 'Error'
 		state.contents = action.payload
 		state.isError = true
@@ -32,7 +32,22 @@ const reducers = {
 	hidePopup: (state: ErrorState) => {
 		state.isError = false
 	},
+	initError: (state: ErrorState) => {
+		Object.assign(state, initialState)
+	},
 }
+
+export const checkInitSettingErrorPopup = createAsyncThunk(
+	'error/checkInitSettingErrorPopup',
+	async (v, { getState, dispatch }) => {
+		try {
+			getState
+			dispatch
+		} catch (err) {
+			err
+		}
+	},
+)
 
 // ✅ redux toolkit 설정
 const errorSlice = createSlice({
@@ -40,7 +55,12 @@ const errorSlice = createSlice({
 	initialState,
 	reducers,
 })
-export const { setError, hidePopup, setErrorContents, setWarringContents } =
-	errorSlice.actions
-export const selectError = (state) => state.error
+export const {
+	setError,
+	hidePopup,
+	setErrorPopupMessage,
+	setWarringContents,
+	initError,
+} = errorSlice.actions
+export const selectError = (state: { error: ErrorState }) => state.error
 export default errorSlice.reducer

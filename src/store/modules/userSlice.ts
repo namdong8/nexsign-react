@@ -39,6 +39,9 @@ const reducers = {
 	setPhone: (state: UserState, action: PayloadAction<string>) => {
 		state.phone = action.payload
 	},
+	initUser: (state: UserState) => {
+		Object.assign(state, initialState)
+	},
 }
 
 // ✅ redux toolkit 설정
@@ -49,7 +52,14 @@ const userSlice = createSlice({
 	initialState, // 모듈 상태 초기화
 	reducers, // 리듀서 작성
 })
-export const { setUser, setName, setBirthday, setPhone, setRrn1, setRrn2 } =
-	userSlice.actions
-export const selectUser = (state) => state.user
+export const {
+	setUser,
+	setName,
+	setBirthday,
+	setPhone,
+	setRrn1,
+	setRrn2,
+	initUser,
+} = userSlice.actions
+export const selectUser = (state: { user: UserState }) => state.user
 export default userSlice.reducer

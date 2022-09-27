@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 import React, { useEffect } from 'react'
 import Header from './view/layout/Header'
 import Contents from './view/layout/Contents'
@@ -7,6 +8,7 @@ import Loading from './view/components/Loading'
 import { useAppDispatch, useAppSelector } from './store/hook'
 import { selectSystem } from './store/modules/systemSlice'
 import { fetchSetConfig, selectConfig } from './store/modules/configSlice'
+import ErrorPopup from './view/components/ErrorPopup'
 
 function App() {
 	// ✅ Redux
@@ -16,14 +18,16 @@ function App() {
 
 	// ✅ APP 기초 셋팅
 	useEffect(() => {
-		// CONFIG_FILE_PATH 경로가 설정되면 Config Setting
-		dispatch(fetchSetConfig())
+		if (!!CONFIG_FILE_PATH) {
+			// CONFIG_FILE_PATH 경로가 설정되면 Config Setting
+			dispatch(fetchSetConfig())
+		}
 	}, [CONFIG_FILE_PATH])
 
 	// ✅ View
 	return (
 		<>
-			{isApp && (
+			{isApp ? (
 				<>
 					<div className='ns-app-bg'></div>
 					<Loading />
@@ -34,6 +38,8 @@ function App() {
 						<Footer />
 					</div>
 				</>
+			) : (
+				<ErrorPopup />
 			)}
 		</>
 	)

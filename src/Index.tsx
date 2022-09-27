@@ -9,7 +9,6 @@ import store from './store/store'
 import { setUser, UserState } from './store/modules/userSlice'
 import { setProviderId } from './store/modules/providerSlice'
 import { setConfigPath } from './store/modules/configSlice'
-import { setOpenApp } from './store/modules/systemSlice'
 
 // CSS Load
 import './assets/css/common.css'
@@ -44,8 +43,6 @@ export async function POPUP() {
 			</Provider>,
 		)
 	}
-	// 팝업 표시
-	store.dispatch(setOpenApp(true))
 }
 
 export const CONFIG = {

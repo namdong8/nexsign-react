@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { JSONObject } from '../../@types/type'
 import api from '../../utils/api'
 import { ConfigState } from './configSlice'
-import { setErrorContents } from './errorSlice'
+import { setErrorPopupMessage } from './errorSlice'
 import { setLoading } from './systemSlice'
 import { UserState } from './userSlice'
 
@@ -31,6 +31,9 @@ const reducers = {
 	) => {
 		state.authConfirmJson = action.payload
 	},
+	initCertifty: (state: CertifyState) => {
+		Object.assign(state, initialState)
+	},
 }
 
 // ✅ 비동기 Thunk
@@ -53,13 +56,13 @@ export const fetchAuthRequest = createAsyncThunk(
 			}
 			const res = await api.authRequest(API_CONTEXT_URL, json)
 			if (!res.data) {
-				dispatch(setErrorContents('시스템 에러'))
+				dispatch(setErrorPopupMessage('시스템 에러'))
 			} else {
 				dispatch(setAuthRequestJson(res.data))
 			}
 			dispatch(setLoading(false))
 		} catch (err) {
-			dispatch(setErrorContents('네트워크 에러'))
+			dispatch(setErrorPopupMessage('네트워크 에러'))
 			dispatch(setLoading(false))
 			return rejectWithValue(err.response.data)
 		}
@@ -84,33 +87,52 @@ export const fetchAuthConfirm = createAsyncThunk(
 			}
 			const res = await api.authConfirm(API_CONTEXT_URL, json)
 			if (!res.data) {
-				dispatch(setErrorContents('시스템 에러'))
+				dispatch(setErrorPopupMessage('시스템 에러'))
 			} else {
 				dispatch(setAuthConfirmJson(res.data))
 			}
 			dispatch(setLoading(false))
 		} catch (err) {
-			dispatch(setErrorContents('네트워크 에러'))
+			dispatch(setErrorPopupMessage('네트워크 에러'))
 			dispatch(setLoading(false))
 			return rejectWithValue(err.response.data)
 		}
 	},
 )
 /** 인증 통신 에러 테스트 */
-export const fetchTest = createAsyncThunk(
+export const fetchNetworkError = createAsyncThunk(
 	'certify/fetchTest',
-	async (v, { rejectWithValue, dispatch }) => {
+	async (v, { dispatch }) => {
 		try {
 			dispatch(setLoading(true))
 			const res = await api.getProviderList('http://localhost:1000')
 			if (!res.data) {
-				dispatch(setErrorContents('시스템 에러'))
-				dispatch(setLoading(false))
+				dispatch(setErrorPopupMessage('시스템 에러'))
 			}
-		} catch (err) {
-			dispatch(setErrorContents('네트워크 에러'))
 			dispatch(setLoading(false))
-			return rejectWithValue(err.response.data)
+		} catch (err) {
+			dispatch(setErrorPopupMessage('네트워크 에러'))
+			dispatch(setLoading(false))
+		}
+	},
+)
+/** 요청 파싱에러 */
+export const fetchSystemError = createAsyncThunk(
+	'certify/fetchTest',
+	async (v, { dispatch, getState }) => {
+		try {
+			dispatch(setLoading(true))
+			const { config } = getState() as { config: ConfigState }
+			const API_CONTEXT_URL = config.API_CONTEXT_URL
+			const res = await api.getProviderList(API_CONTEXT_URL)
+			res.status = 500
+			if (res.status === 500) {
+				dispatch(setErrorPopupMessage('시스템 에러'))
+			}
+			dispatch(setLoading(false))
+		} catch (err) {
+			dispatch(setErrorPopupMessage('네트워크 에러'))
+			dispatch(setLoading(false))
 		}
 	},
 )
@@ -121,6 +143,7 @@ export const certifySlice = createSlice({
 	initialState,
 	reducers,
 })
-export const { setAuthRequestJson, setAuthConfirmJson } = certifySlice.actions
-export const selectCertify = (state) => state.certify
+export const { setAuthRequestJson, setAuthConfirmJson, initCertifty } =
+	certifySlice.actions
+export const selectCertify = (state: { certify: CertifyState }) => state.certify
 export default certifySlice.reducer

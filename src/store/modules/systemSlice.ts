@@ -2,7 +2,12 @@
 /* eslint-disable no-undef */
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import MobileDetect from 'mobile-detect'
-import { setErrorContents } from './errorSlice'
+import message from '../../utils/message'
+import { initCertifty } from './certifySlice'
+import { initConfig } from './configSlice'
+import { initError, setErrorPopupMessage } from './errorSlice'
+import { initProvider } from './providerSlice'
+import { initUser } from './userSlice'
 
 export interface SystemState {
 	deviceCode: string
@@ -28,21 +33,38 @@ const reducers = {
 	setOpenApp: (state: SystemState, action: PayloadAction<boolean>) => {
 		state.isApp = action.payload
 	},
+	initSystem: (state: SystemState) => {
+		Object.assign(state, initialState)
+	},
 }
 
 // ✅ 비동기 Thunk
 /** Device Info Setting */
 export const setSystemInit = createAsyncThunk(
 	'system/setSystemInit',
-	async (v, { rejectWithValue, dispatch }) => {
+	async (v, { dispatch }) => {
 		try {
-			// dispatch(setOpenApp(true))
 			const md = new MobileDetect(window.navigator.userAgent)
 			const code = !!md.mobile() ? 'MO' : !!md.tablet() ? 'TB' : 'PC'
 			dispatch(setDeviceCode(code))
 		} catch (err) {
-			dispatch(setErrorContents('시스템 에러'))
-			return rejectWithValue(err.response.data)
+			dispatch(setErrorPopupMessage(message.ERROR.SYSTEM))
+		}
+	},
+)
+
+export const initApp = createAsyncThunk(
+	'system/initApp',
+	async (v, { dispatch }) => {
+		try {
+			dispatch(initSystem())
+			dispatch(initCertifty())
+			dispatch(initConfig())
+			dispatch(initProvider())
+			dispatch(initUser())
+			dispatch(initError())
+		} catch (error) {
+			error
 		}
 	},
 )
@@ -53,6 +75,7 @@ const systemSlice = createSlice({
 	initialState, // 모듈 상태 초기화
 	reducers, // 리듀서 작성
 })
-export const { setLoading, setOpenApp, setDeviceCode } = systemSlice.actions
-export const selectSystem = (state) => state.system
+export const { setLoading, setOpenApp, setDeviceCode, initSystem } =
+	systemSlice.actions
+export const selectSystem = (state: { system: SystemState }) => state.system
 export default systemSlice.reducer

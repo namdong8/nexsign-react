@@ -24,8 +24,8 @@ const reducers = {
 	minusCount: (state: TemplateState, action: PayloadAction<number>) => {
 		state.value = action.payload
 	},
-	init: (state: TemplateState, action: PayloadAction<number>) => {
-		state.value = action.payload
+	init: (state: TemplateState) => {
+		Object.assign(state, initialState)
 	},
 }
 

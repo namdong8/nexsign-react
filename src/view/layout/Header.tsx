@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppDispatch } from '../../store/hook'
-import { setOpenApp } from '../../store/modules/systemSlice'
+import { initApp } from '../../store/modules/systemSlice'
 
 function Header() {
 	//✅ Redux Hook
@@ -8,7 +8,7 @@ function Header() {
 
 	// ✅ Functions
 	const close = () => {
-		dispatch(setOpenApp(false))
+		dispatch(initApp())
 	}
 	// View
 	return (
