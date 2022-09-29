@@ -1,9 +1,9 @@
 import React from 'react'
 
 // ✅ Props 기본값
-UserInfo.defaultProps = {
-	test: '',
-}
+// UserInfo.defaultProps = {
+// 	test: '',
+// }
 
 function UserInfo({
 	onUpdateName,

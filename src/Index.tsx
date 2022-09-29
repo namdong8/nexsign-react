@@ -6,9 +6,9 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import App from './App'
 import store from './store/store'
-import { setUser, UserState } from './store/modules/userSlice'
+import { parsingUserInfo, UserState } from './store/modules/userSlice'
 import { setProviderId } from './store/modules/providerSlice'
-import { setConfigPath } from './store/modules/configSlice'
+import { fetchSetConfig } from './store/modules/configSlice'
 
 // CSS Load
 import './assets/css/common.css'
@@ -21,7 +21,7 @@ let container = null
 
 /** ✅ 사용자정보 자동 기입 */
 export function SET_USER_JSON(json: UserState) {
-	store.dispatch(setUser(json))
+	store.dispatch(parsingUserInfo(json))
 }
 /** ✅ 인증기관 자동 선택 */
 export function SET_SELECT_PROVIDER_ID(id: string) {
@@ -30,7 +30,7 @@ export function SET_SELECT_PROVIDER_ID(id: string) {
 /** ✅ System 셋팅 */
 export function SET_CONFIG(path: string) {
 	// 외부 설정파일 경로 설정
-	store.dispatch(setConfigPath(path))
+	store.dispatch(fetchSetConfig(path))
 }
 
 /** ✅ 인증창 팝업 */

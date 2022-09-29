@@ -6,6 +6,7 @@ import configSlice from './modules/configSlice'
 import certifySlice from './modules/certifySlice'
 import errorSlice from './modules/errorSlice'
 import systemSlice from './modules/systemSlice'
+import { AppStore } from './hook'
 
 // Redux - Flux 아키텍쳐 기반
 
@@ -34,7 +35,7 @@ const prodMiddleware = (getDefaultMiddleware) => {
 	return getDefaultMiddleware()
 }
 
-const store = configureStore({
+const store: AppStore = configureStore({
 	reducer,
 	middleware: isDev ? devMiddleware : prodMiddleware,
 	devTools: isDev, // Redux DevTools 사용 여부 설정. (기본값은 true)

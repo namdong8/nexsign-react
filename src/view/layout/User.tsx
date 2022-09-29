@@ -19,19 +19,19 @@ function User() {
 	const dispatch = useAppDispatch()
 
 	// ✅ Functions
-	const onUdtName = (e) => {
+	const onUdtName = (e: { target: { value: string } }) => {
 		if (regExp.name(e.target.value)) dispatch(setName(e.target.value))
 	}
-	const onUdtRrn1 = (e) => {
+	const onUdtRrn1 = (e: { target: { value: string } }) => {
 		if (regExp.rrn1Number(e.target.value)) dispatch(setRrn1(e.target.value))
 	}
-	const onUdtRrn2 = (e) => {
+	const onUdtRrn2 = (e: { target: { value: string } }) => {
 		if (regExp.rrn2Number(e.target.value)) dispatch(setRrn2(e.target.value))
 	}
-	const onUdtBirthday = (e) => {
+	const onUdtBirthday = (e: { target: { value: string } }) => {
 		if (regExp.birthNumber(e.target.value)) dispatch(setBirthday(e.target.value))
 	}
-	const onUdtPhone = (e) => {
+	const onUdtPhone = (e: { target: { value: string } }) => {
 		if (regExp.phoneNumber(e.target.value)) dispatch(setPhone(e.target.value))
 	}
 

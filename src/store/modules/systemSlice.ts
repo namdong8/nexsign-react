@@ -53,6 +53,7 @@ export const setSystemInit = createAsyncThunk(
 	},
 )
 
+/** State 초기화 - 닫기 */
 export const initApp = createAsyncThunk(
 	'system/initApp',
 	async (v, { dispatch }) => {

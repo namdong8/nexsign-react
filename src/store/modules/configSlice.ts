@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import api from '../../utils/api'
 import { setFonts } from '../../utils/cssVars'
-import { setErrorPopupMessage } from './errorSlice'
+import { ErrorState, setErrorPopupMessage } from './errorSlice'
 import { setOpenApp } from './systemSlice'
 
 export interface ConfigState {
@@ -35,10 +35,15 @@ const reducers = {
 /** 외부에서 들어온 Config File Data Parsing */
 export const fetchSetConfig = createAsyncThunk(
 	'config/fetchSetConfig',
-	async (v, { dispatch, getState }) => {
+	async (path: string, { dispatch, getState }) => {
 		try {
-			const { config } = getState() as { config: ConfigState }
-			const res = (await api.getConfig(config.CONFIG_FILE_PATH)).data
+			const { error } = getState() as { error: ErrorState }
+			if (error.isError) {
+				return dispatch(setOpenApp(false))
+			}
+
+			const res = (await api.getConfig(path)).data
+			// 유효한 JSON 형식 체크
 			if (typeof res === 'string') {
 				dispatch(setOpenApp(false))
 				dispatch(setErrorPopupMessage('설정 에러'))
