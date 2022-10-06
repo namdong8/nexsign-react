@@ -1,6 +1,7 @@
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable no-undef */
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { JSONObject } from '../../@types/type'
 import MobileDetect from 'mobile-detect'
 import message from '../../utils/message'
 import { initCertifty } from './certifySlice'
@@ -13,13 +14,18 @@ export interface SystemState {
 	deviceCode: string
 	isLoading: boolean
 	isApp: boolean
+	focusRefs: JSONObject
 }
 
 // ✅ 상태변수 초기값
 const initialState = {
 	deviceCode: '', // PC, MO, TB
 	isLoading: false,
-	isApp: false,
+	isApp: true,
+	focusRefs: {
+		isNameFocus: false,
+		isBirthdayFocus: false,
+	},
 }
 
 // ✅ Reducer 선언
@@ -32,6 +38,12 @@ const reducers = {
 	},
 	setOpenApp: (state: SystemState, action: PayloadAction<boolean>) => {
 		state.isApp = action.payload
+	},
+	setFocusTarget: (
+		state: SystemState,
+		action: PayloadAction<{ key: string; value: boolean }>,
+	) => {
+		state.focusRefs[action.payload.key] = action.payload.value
 	},
 	initSystem: (state: SystemState) => {
 		Object.assign(state, initialState)
@@ -76,7 +88,19 @@ const systemSlice = createSlice({
 	initialState, // 모듈 상태 초기화
 	reducers, // 리듀서 작성
 })
-export const { setLoading, setOpenApp, setDeviceCode, initSystem } =
-	systemSlice.actions
-export const selectSystem = (state: { system: SystemState }) => state.system
+export const {
+	setLoading,
+	setOpenApp,
+	setDeviceCode,
+	initSystem,
+	setFocusTarget,
+} = systemSlice.actions
+
+// ✅ State 접근 | Component Re-Render 방지를 위한 독립 셋팅
+export const system = {
+	isApp: (state: { system: SystemState }) => state.system.isApp,
+	isLoading: (state: { system: SystemState }) => state.system.isLoading,
+	deviceCode: (state: { system: SystemState }) => state.system.deviceCode,
+}
+
 export default systemSlice.reducer

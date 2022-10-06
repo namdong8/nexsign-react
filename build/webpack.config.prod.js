@@ -7,14 +7,15 @@ module.exports = merge(webpackConfig, {
 	mode: 'production',
 	plugins: [
 		new HtmlWebpackPlugin({
-			filename: 'index.html',
+			filename: './nex-sign/index.html',
 			template: './public/index.prod.html',
 			inject: false,
+			minify: false,
 		}),
 		new CopyWebpackPlugin({
 			patterns: [
-				{ from: './src/assets/fonts', to: './fonts' },
-				{ from: './src/config', to: './config' },
+				{ from: './src/assets/fonts', to: './nex-sign/fonts' },
+				{ from: './src/config', to: './nex-sign/config' },
 			],
 		}),
 	],

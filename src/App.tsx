@@ -1,17 +1,16 @@
 /* eslint-disable no-extra-boolean-cast */
 import React from 'react'
 import Header from './view/layout/Header'
-import Contents from './view/layout/Contents'
-import Footer from './view/layout/Footer'
 import ErrorModal from './view/components/ErrorModal'
-import Loading from './view/components/Loading'
-import { useAppSelector } from './store/hook'
-import { selectSystem } from './store/modules/systemSlice'
+import { system } from './store/modules/systemSlice'
 import ErrorPopup from './view/components/ErrorPopup'
+import { useAppSelector } from './store/hook'
+import Loading from './view/components/Loading'
+import MainForm from './view/layout/MainForm'
 
 function App() {
 	// ✅ Redux
-	const { isApp } = useAppSelector(selectSystem)
+	const isApp = useAppSelector(system.isApp)
 
 	// ✅ View
 	return (
@@ -23,8 +22,7 @@ function App() {
 					<div className='ns-sign'>
 						<ErrorModal />
 						<Header />
-						<Contents />
-						<Footer />
+						<MainForm />
 					</div>
 				</>
 			) : (

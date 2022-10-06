@@ -1,4 +1,4 @@
 {
-    "FONT_PATH":"./fonts",
+    "FONT_PATH":"./nex-sign/fonts",
     "API_CONTEXT_URL":"http://localhost:5000"
 }

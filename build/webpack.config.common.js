@@ -12,14 +12,14 @@ module.exports = {
 	},
 	output: {
 		path: path.join(__dirname, '../dist'),
-		filename: 'app.js',
+		filename: './nex-sign/app.js',
 		library: 'NEX_SIGN',
 		libraryTarget: 'umd',
 	},
 	target: ['web', 'es5'],
 	plugins: [
 		new MiniCssExtractPlugin({
-			filename: '[name].css',
+			filename: './nex-sign/[name].css',
 			chunkFilename: '[id].css',
 			ignoreOrder: false,
 		}),

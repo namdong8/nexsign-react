@@ -1,4 +1,5 @@
 import { AnyAction, Store, ThunkDispatch } from '@reduxjs/toolkit'
+import { useEffect, useRef } from 'react'
 import {
 	RootStateOrAny,
 	TypedUseSelectorHook,
@@ -19,3 +20,15 @@ export type AppStore = Omit<Store<RootStateOrAny, AnyAction>, 'dispatch'> & {
 }
 export const useAppDispatch = () => useDispatch<AppThunkDispatch>()
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+
+export const useAutoFocus = () => {
+	const inputRef = useRef(null)
+
+	useEffect(() => {
+		if (inputRef.current) {
+			inputRef.current.focus()
+		}
+	}, [])
+
+	return inputRef
+}
