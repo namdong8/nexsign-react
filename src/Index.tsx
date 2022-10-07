@@ -14,6 +14,7 @@ import { fetchSetConfig } from './store/modules/configSlice'
 import './assets/css/common.css'
 import './assets/css/app.css'
 import './assets/css/fonts.css'
+import { JSONObject } from './@types/type'
 
 let container = null
 
@@ -24,13 +25,17 @@ export function SET_USER_JSON(json: UserState) {
 	store.dispatch(parsingUserInfo(json))
 }
 /** ✅ 인증기관 자동 선택 */
-export function SET_SELECT_PROVIDER_ID(id: string) {
+export function SET_PROVIDER_ID(id: string) {
 	store.dispatch(setProviderId(id))
 }
 /** ✅ System 셋팅 */
 export function SET_CONFIG(path: string) {
 	// 외부 설정파일 경로 설정
 	store.dispatch(fetchSetConfig(path))
+}
+
+export function SET_DATA(json: JSONObject) {
+	alert(`${JSON.stringify(json)} \n ✔️ 값 설정 완료`)
 }
 
 /** ✅ 인증창 팝업 */

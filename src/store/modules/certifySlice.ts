@@ -64,7 +64,7 @@ export const fetchAuthRequest = createAsyncThunk(
 		} catch (err) {
 			dispatch(setErrorPopupMessage('네트워크 에러'))
 			dispatch(setLoading(false))
-			return rejectWithValue(err.response.data)
+			rejectWithValue(err.response.data)
 		}
 	},
 )
@@ -95,7 +95,7 @@ export const fetchAuthConfirm = createAsyncThunk(
 		} catch (err) {
 			dispatch(setErrorPopupMessage('네트워크 에러'))
 			dispatch(setLoading(false))
-			return rejectWithValue(err.response.data)
+			rejectWithValue(err.response.data)
 		}
 	},
 )

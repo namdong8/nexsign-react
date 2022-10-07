@@ -1,0 +1,4 @@
+{
+    "RESOURCE_CONTEXT_URL":"http://localhost:8080",
+    "API_CONTEXT_URL":"http://localhost:5000/nexsign/api"
+}

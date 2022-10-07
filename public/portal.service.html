@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEX-Sign</title>
+</head>
+<body>
+    <button id="sign" type="button">인증</button>
+</body>
+
+<script>
+    var url = 'http://localhost:8000/portal/nex-sign/portal.module.html';
+    function sdkData() {
+        return { sdkToken: '토큰 값', sdkKey: '이용기관 고유 키 값', sdkData: 'SDK Data' }
+    }
+    document.getElementById("sign").onclick = function() {
+        var position = ',left=10px, top=10px';
+        var size = 'width=600px, height=450px,';
+		var winopts = 'scrollbars=yes, resizable=yes, menubar=no, toolbar=no, location=no, status=no, titlebar=0, ';
+		window.open(url, 'NexSign', size + options + position);
+    }
+</script>
+</html>

@@ -8,14 +8,21 @@ module.exports = merge(webpackConfig, {
 	plugins: [
 		new HtmlWebpackPlugin({
 			filename: './nex-sign/index.html',
-			template: './public/index.prod.html',
+			template: './public/portal.service.html',
 			inject: false,
 			minify: false,
 		}),
 		new CopyWebpackPlugin({
 			patterns: [
 				{ from: './src/assets/fonts', to: './nex-sign/fonts' },
-				{ from: './src/config', to: './nex-sign/config' },
+				{
+					from: './src/config/config.prod.json',
+					to: './nex-sign/config/config.json',
+				},
+				{
+					from: './public/portal.module.html',
+					to: './nex-sign/portal.module.html',
+				},
 			],
 		}),
 	],

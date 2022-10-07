@@ -22,13 +22,13 @@ export const useAppDispatch = () => useDispatch<AppThunkDispatch>()
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 export const useAutoFocus = () => {
-	const inputRef = useRef(null)
+	const ref = useRef(null)
 
 	useEffect(() => {
-		if (inputRef.current) {
-			inputRef.current.focus()
+		if (ref.current) {
+			ref.current.focus()
 		}
 	}, [])
 
-	return inputRef
+	return ref
 }

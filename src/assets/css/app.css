@@ -16,7 +16,7 @@
     border-radius: 5px;
     width: var(--popup-width);
     height: var(--popup-hight);
-    transform: translate(-50%,-55%);
+    transform: translate(-50%,-50%);
 }
 
 .ns-sign header{

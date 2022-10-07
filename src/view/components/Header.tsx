@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react'
 import { useAppDispatch } from '../../store/hook'
 import { initApp } from '../../store/modules/systemSlice'
@@ -9,6 +10,7 @@ function Header() {
 	// ✅ Functions
 	const close = () => {
 		dispatch(initApp())
+		window.close()
 	}
 	// View
 	return (

@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEX-Sign</title>
-    <link rel="stylesheet" href="./main/nex-sign/app.css" onload="this.media='all'">
-    <script defer="" src="./main/nex-sign/app.js"></script>
+    <link rel="stylesheet" href="./app.css" onload="this.media='all'">
+    <script defer="" src="./app.js"></script>
 </head>
 <body>
     <button id="sign" type="button">인증</button>
@@ -23,10 +23,10 @@
             birthday: '19880803',
         })
         // 인증기관 자동 선택
-        NEX_SIGN.SET_SELECT_PROVIDER_ID('kakao')
+        NEX_SIGN.SET_PROVIDER_ID('kakao')
 
         // 설정파일 경로 지정 및 설정값 반영
-        NEX_SIGN.SET_CONFIG('./nex-sign/config/config.json')
+        NEX_SIGN.SET_CONFIG('./config/config.json')
 
         // 인증창 렌더링
         NEX_SIGN.POPUP()

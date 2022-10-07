@@ -1,6 +1,6 @@
 /* eslint-disable no-extra-boolean-cast */
 import React from 'react'
-import { useAppDispatch, useAppSelector, useAutoFocus } from '../../store/hook'
+import { useAppDispatch, useAppSelector } from '../../store/hook'
 import {
 	setName,
 	setBirthday,
@@ -12,29 +12,26 @@ import {
 import regExp from '../../utils/regExp'
 
 // 사용자정보 파싱
-function UserInfo() {
-	const nameInput = useAutoFocus()
-	const birthdayInput = useAutoFocus()
-
+function UserInfo({ nameRef, birthdayRef, phoneRef, rrn1Ref, rrn2Ref }) {
 	// ✅ Redux
 	const user = useAppSelector(selectUser)
 	const dispatch = useAppDispatch()
 
 	// ✅ Functions
 	const onUdtName = (e: { target: { value: string } }) => {
-		if (regExp.name(e.target.value)) dispatch(setName(e.target.value))
+		regExp.name(e.target.value) && dispatch(setName(e.target.value))
 	}
 	const onUdtRrn1 = (e: { target: { value: string } }) => {
-		if (regExp.rrn1Number(e.target.value)) dispatch(setRrn1(e.target.value))
+		regExp.rrn1Number(e.target.value) && dispatch(setRrn1(e.target.value))
 	}
 	const onUdtRrn2 = (e: { target: { value: string } }) => {
-		if (regExp.rrn2Number(e.target.value)) dispatch(setRrn2(e.target.value))
+		regExp.rrn2Number(e.target.value) && dispatch(setRrn2(e.target.value))
 	}
 	const onUdtBirthday = (e: { target: { value: string } }) => {
-		if (regExp.birthNumber(e.target.value)) dispatch(setBirthday(e.target.value))
+		regExp.birthNumber(e.target.value) && dispatch(setBirthday(e.target.value))
 	}
 	const onUdtPhone = (e: { target: { value: string } }) => {
-		if (regExp.phoneNumber(e.target.value)) dispatch(setPhone(e.target.value))
+		regExp.phoneNumber(e.target.value) && dispatch(setPhone(e.target.value))
 	}
 
 	// ✅ View
@@ -43,13 +40,8 @@ function UserInfo() {
 			<div className='ns-user'>
 				<ul>
 					<li>
-						이름:{' '}
-						<input
-							type='text'
-							onChange={onUdtName}
-							value={user.name}
-							ref={nameInput}
-						/>
+						이름:
+						<input type='text' onChange={onUdtName} value={user.name} ref={nameRef} />
 					</li>
 					<li>
 						생년월일:
@@ -60,7 +52,7 @@ function UserInfo() {
 							inputMode='numeric'
 							title='생년월일 여덟자리'
 							placeholder='생년월일 8자리(-제외)'
-							ref={birthdayInput}
+							ref={birthdayRef}
 						/>
 					</li>
 					<li>
@@ -72,6 +64,7 @@ function UserInfo() {
 							inputMode='numeric'
 							title='주민등록번호 앞자리'
 							placeholder='주민등록번호 6자리'
+							ref={rrn1Ref}
 						/>
 						<input
 							type='password'
@@ -81,6 +74,7 @@ function UserInfo() {
 							inputMode='numeric'
 							title='주민등록번호 뒷자리'
 							placeholder='주민등록번호 7자리'
+							ref={rrn2Ref}
 						/>
 					</li>
 					<li>
@@ -92,6 +86,7 @@ function UserInfo() {
 							inputMode='numeric'
 							title='휴대폰번호 11자리(-제외)'
 							placeholder='휴대폰번호 11자리(-제외)'
+							ref={phoneRef}
 						/>
 					</li>
 				</ul>

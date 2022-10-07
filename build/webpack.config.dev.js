@@ -14,7 +14,10 @@ module.exports = merge(webpackConfig, {
 		new CopyWebpackPlugin({
 			patterns: [
 				{ from: './src/assets/fonts', to: './nex-sign/fonts' },
-				{ from: './src/config', to: './nex-sign/config' },
+				{
+					from: './src/config/config.dev.json',
+					to: './nex-sign/config/config.json',
+				},
 			],
 		}),
 	],

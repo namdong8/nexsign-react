@@ -6,13 +6,13 @@ import { setOpenApp } from './systemSlice'
 
 export interface ConfigState {
 	CONFIG_FILE_PATH: string
-	FONT_PATH: string
+	RESOURCE_CONTEXT_URL: string
 	API_CONTEXT_URL: string
 }
 
 // ✅ 상태변수 초기값
 const initialState: ConfigState = {
-	FONT_PATH: '',
+	RESOURCE_CONTEXT_URL: '',
 	API_CONTEXT_URL: '',
 	CONFIG_FILE_PATH: '',
 }
@@ -20,7 +20,7 @@ const initialState: ConfigState = {
 // ✅ Reducer 선언
 const reducers = {
 	setConfig: (state: ConfigState, action: PayloadAction<ConfigState>) => {
-		state.FONT_PATH = action.payload.FONT_PATH
+		state.RESOURCE_CONTEXT_URL = action.payload.RESOURCE_CONTEXT_URL
 		state.API_CONTEXT_URL = action.payload.API_CONTEXT_URL
 	},
 	setConfigPath: (state: ConfigState, action: PayloadAction<string>) => {
@@ -48,7 +48,7 @@ export const fetchSetConfig = createAsyncThunk(
 				dispatch(setOpenApp(false))
 				dispatch(setErrorPopupMessage('설정 에러'))
 			} else {
-				setFonts(res.FONT_PATH)
+				setFonts(res.RESOURCE_CONTEXT_URL)
 				dispatch(setConfig(res))
 				dispatch(setOpenApp(true))
 			}
@@ -70,7 +70,7 @@ export const fetchSetTest = createAsyncThunk(
 				dispatch(setOpenApp(false))
 				dispatch(setErrorPopupMessage('설정 에러'))
 			} else {
-				setFonts(res.FONT_PATH)
+				setFonts(res.RESOURCE_CONTEXT_URL)
 				dispatch(setConfig(res))
 				dispatch(setOpenApp(true))
 			}

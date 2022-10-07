@@ -1,6 +1,5 @@
 /* eslint-disable no-extra-boolean-cast */
 import React from 'react'
-import Header from './view/layout/Header'
 import ErrorModal from './view/components/ErrorModal'
 import { system } from './store/modules/systemSlice'
 import ErrorPopup from './view/components/ErrorPopup'
@@ -21,7 +20,6 @@ function App() {
 					<Loading />
 					<div className='ns-sign'>
 						<ErrorModal />
-						<Header />
 						<MainForm />
 					</div>
 				</>

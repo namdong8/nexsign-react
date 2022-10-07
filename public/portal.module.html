@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEX-Sign</title>
+    <link rel="stylesheet" href="http://localhost:9000/nexsign/resource/nex-sign/app.css">
+    <script src="http://localhost:9000/nexsign/resource/nex-sign/app.js"></script>
+</head>
+<body>
+    <div id="ns-root"></div>
+</body>
+
+<script>
+    // 사용자정보 자동 기입
+    NEX_SIGN.SET_USER_JSON({
+        name: '남동훈',
+        phone: '01030431071',
+        birthday: '19880803',
+    })
+    // 인증기관 자동 선택
+    NEX_SIGN.SET_PROVIDER_ID('kakao')
+
+    // 이용기관 포탈사이트의 필수 데이터 Parsing
+    NEX_SIGN.SET_DATA(window.opener.sdkData())
+
+    // 설정파일 경로 지정 및 설정값 반영
+    NEX_SIGN.SET_CONFIG('./config/config.json')
+
+    // 인증창 렌더링
+    NEX_SIGN.POPUP()
+</script>
+</html>
