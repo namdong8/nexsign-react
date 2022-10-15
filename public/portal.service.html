@@ -11,14 +11,18 @@
 </body>
 
 <script>
-    var url = 'http://localhost:8000/portal/nex-sign/portal.module.html';
-    function sdkData() {
+    var url = 'http://localhost:9000/nexsign/resource/nex-sign/portal.module.html';
+    function setSDKData() {
         return { sdkToken: '토큰 값', sdkKey: '이용기관 고유 키 값', sdkData: 'SDK Data' }
+    }
+    function getData(res){
+        console.log(res)
+	    alert(`${JSON.stringify(res)} \n ✔️ 인증완료 값 반환`)
     }
     document.getElementById("sign").onclick = function() {
         var position = ',left=10px, top=10px';
         var size = 'width=600px, height=450px,';
-		var winopts = 'scrollbars=yes, resizable=yes, menubar=no, toolbar=no, location=no, status=no, titlebar=0, ';
+		var options = 'scrollbars=yes, resizable=yes, menubar=no, toolbar=no, location=no, status=no, titlebar=0, ';
 		window.open(url, 'NexSign', size + options + position);
     }
 </script>

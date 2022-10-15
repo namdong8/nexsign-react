@@ -19,13 +19,8 @@ const reducers = {
 		state.contents = action.payload.contents
 		state.isError = true
 	},
-	setErrorPopupMessage: (state: ErrorState, action: PayloadAction<string>) => {
+	setErrPopupMsg: (state: ErrorState, action: PayloadAction<string>) => {
 		state.title = 'Error'
-		state.contents = action.payload
-		state.isError = true
-	},
-	setWarringContents: (state: ErrorState, action: PayloadAction<string>) => {
-		state.title = 'Warring'
 		state.contents = action.payload
 		state.isError = true
 	},
@@ -37,30 +32,13 @@ const reducers = {
 	},
 }
 
-export const checkInitSettingErrorPopup = createAsyncThunk(
-	'error/checkInitSettingErrorPopup',
-	async (v, { getState, dispatch }) => {
-		try {
-			getState
-			dispatch
-		} catch (err) {
-			err
-		}
-	},
-)
-
 // ✅ redux toolkit 설정
 const errorSlice = createSlice({
 	name: 'error',
 	initialState,
 	reducers,
 })
-export const {
-	setError,
-	hidePopup,
-	setErrorPopupMessage,
-	setWarringContents,
-	initError,
-} = errorSlice.actions
+export const { setError, hidePopup, setErrPopupMsg, initError } =
+	errorSlice.actions
 export const selectError = (state: { error: ErrorState }) => state.error
 export default errorSlice.reducer

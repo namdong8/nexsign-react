@@ -1,9 +1,9 @@
-/* eslint-disable no-undef */
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import Options from '../../utils/umdCostomerOptions'
 import { JSONObject } from '../../@types/type'
 import api from '../../utils/api'
 import { ConfigState } from './configSlice'
-import { setErrorPopupMessage } from './errorSlice'
+import { setErrPopupMsg } from './errorSlice'
 import { setLoading } from './systemSlice'
 import { UserState } from './userSlice'
 
@@ -36,7 +36,6 @@ const reducers = {
 	},
 }
 
-// ✅ 비동기 Thunk
 /** 인증요청 */
 export const fetchAuthRequest = createAsyncThunk(
 	'certify/fetchAuthRequest',
@@ -56,13 +55,14 @@ export const fetchAuthRequest = createAsyncThunk(
 			}
 			const res = await api.authRequest(API_CONTEXT_URL, json)
 			if (!res.data) {
-				dispatch(setErrorPopupMessage('시스템 에러'))
+				dispatch(setErrPopupMsg('시스템 에러'))
 			} else {
+				Options.REQUEST_RESPONSE(res.data)
 				dispatch(setAuthRequestJson(res.data))
 			}
 			dispatch(setLoading(false))
 		} catch (err) {
-			dispatch(setErrorPopupMessage('네트워크 에러'))
+			dispatch(setErrPopupMsg('네트워크 에러'))
 			dispatch(setLoading(false))
 			rejectWithValue(err.response.data)
 		}
@@ -87,13 +87,14 @@ export const fetchAuthConfirm = createAsyncThunk(
 			}
 			const res = await api.authConfirm(API_CONTEXT_URL, json)
 			if (!res.data) {
-				dispatch(setErrorPopupMessage('시스템 에러'))
+				dispatch(setErrPopupMsg('시스템 에러'))
 			} else {
 				dispatch(setAuthConfirmJson(res.data))
+				Options.CALLBACK_RESULT(res.data)
 			}
 			dispatch(setLoading(false))
 		} catch (err) {
-			dispatch(setErrorPopupMessage('네트워크 에러'))
+			dispatch(setErrPopupMsg('네트워크 에러'))
 			dispatch(setLoading(false))
 			rejectWithValue(err.response.data)
 		}
@@ -106,13 +107,13 @@ export const fetchNetworkError = createAsyncThunk(
 		try {
 			dispatch(setLoading(true))
 			const res = await api.getProviderList('http://localhost:1000')
+			dispatch(setLoading(false))
 			if (!res.data) {
-				dispatch(setErrorPopupMessage('시스템 에러'))
+				dispatch(setErrPopupMsg('시스템 에러'))
 			}
-			dispatch(setLoading(false))
 		} catch (err) {
-			dispatch(setErrorPopupMessage('네트워크 에러'))
 			dispatch(setLoading(false))
+			dispatch(setErrPopupMsg('네트워크 에러'))
 		}
 	},
 )
@@ -126,13 +127,13 @@ export const fetchSystemError = createAsyncThunk(
 			const API_CONTEXT_URL = config.API_CONTEXT_URL
 			const res = await api.getProviderList(API_CONTEXT_URL)
 			res.status = 500
+			dispatch(setLoading(false))
 			if (res.status === 500) {
-				dispatch(setErrorPopupMessage('시스템 에러'))
+				dispatch(setErrPopupMsg('시스템 에러'))
 			}
-			dispatch(setLoading(false))
 		} catch (err) {
-			dispatch(setErrorPopupMessage('네트워크 에러'))
 			dispatch(setLoading(false))
+			dispatch(setErrPopupMsg('네트워크 에러'))
 		}
 	},
 )

@@ -21,6 +21,8 @@
             name: '남동훈',
             phone: '01030431071',
             birthday: '19880803',
+            rrn1: '',
+            rrn2: ''
         })
         // 인증기관 자동 선택
         NEX_SIGN.SET_PROVIDER_ID('kakao')
@@ -29,6 +31,7 @@
         NEX_SIGN.SET_CONFIG('./config/config.json')
 
         // 인증창 렌더링
+        // Sample Size : 600px * 450px
         NEX_SIGN.POPUP()
     }
 </script>

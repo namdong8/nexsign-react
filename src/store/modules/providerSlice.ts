@@ -3,7 +3,7 @@ import message from '../../utils/message'
 import { JSONArray } from '../../@types/type'
 import api from '../../utils/api'
 import { ConfigState } from './configSlice'
-import { setErrorPopupMessage } from './errorSlice'
+import { setErrPopupMsg } from './errorSlice'
 import { setLoading } from './systemSlice'
 
 export interface ProviderState {
@@ -41,13 +41,13 @@ export const fetchGetProviderList = createAsyncThunk(
 			const API_CONTEXT_URL = config.API_CONTEXT_URL
 			const res = await api.getProviderList(API_CONTEXT_URL)
 			if (!res.data) {
-				dispatch(setErrorPopupMessage(message.ERROR.SYSTEM))
+				dispatch(setErrPopupMsg(message.ERROR.SYSTEM))
 			} else {
 				dispatch(setList(res.data))
 			}
 			dispatch(setLoading(false))
 		} catch (err) {
-			dispatch(setErrorPopupMessage(message.ERROR.NETWORK))
+			dispatch(setErrPopupMsg(message.ERROR.NETWORK))
 			dispatch(setLoading(false))
 		}
 	},

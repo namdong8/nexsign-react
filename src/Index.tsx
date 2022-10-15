@@ -13,12 +13,12 @@ import { fetchSetConfig } from './store/modules/configSlice'
 // CSS Load
 import './assets/css/common.css'
 import './assets/css/app.css'
+import './assets/css/mobile.app.css'
 import './assets/css/fonts.css'
 import { JSONObject } from './@types/type'
+import Options from './utils/umdCostomerOptions'
 
 let container = null
-
-// const dispatch = store.dispatch
 
 /** ✅ 사용자정보 자동 기입 */
 export function SET_USER_JSON(json: UserState) {
@@ -31,8 +31,11 @@ export function SET_PROVIDER_ID(id: string) {
 /** ✅ System 셋팅 */
 export function SET_CONFIG(path: string) {
 	// 외부 설정파일 경로 설정
-	store.dispatch(fetchSetConfig(path))
+	return store.dispatch(fetchSetConfig(path))
 }
+
+/** ✅ 사용자 커스텀 함수 */
+export const FN = Options
 
 export function SET_DATA(json: JSONObject) {
 	alert(`${JSON.stringify(json)} \n ✔️ 값 설정 완료`)

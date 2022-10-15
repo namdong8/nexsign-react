@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { hidePopup, selectError } from '../../store/modules/errorSlice'
 import { useAppDispatch, useAppSelector } from '../../store/hook'
 
-function ErrorModal() {
+function ErrorModal({ register, setFocus, getValues }) {
 	// ✅ Redux Hook
 	const { title, contents, isError } = useAppSelector(selectError)
 	const dispatch = useAppDispatch()
@@ -10,13 +10,10 @@ function ErrorModal() {
 	// ✅ function
 	const isHide = () => {
 		dispatch(hidePopup())
+		setFocus(getValues('errorCloseAfterFocus'))
 	}
-
-	const btnRef = useRef(null)
 	useEffect(() => {
-		if (isError) {
-			btnRef.current && btnRef.current.focus()
-		}
+		isError && setFocus('errorContent')
 	}, [isError])
 
 	// ✅ View
@@ -25,9 +22,17 @@ function ErrorModal() {
 			<div style={{ display: isError ? 'block' : 'none' }}>
 				<div className='ns-error'>
 					<h2>{title}</h2>
-					<div>{contents}</div>
+					<div
+						tabIndex={0}
+						className='ns-error-contents'
+						{...register('errorContent')}>
+						{contents}
+					</div>
 					<div>
-						<button type='button' onClick={isHide} ref={btnRef}>
+						<button
+							type='button'
+							onClick={isHide}
+							{...register('errorCloseAfterFocus')}>
 							닫기
 						</button>
 					</div>

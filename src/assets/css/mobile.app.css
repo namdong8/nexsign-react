@@ -1,0 +1,5 @@
+/* 세로모드 */
+@import 'mobile.style.css' screen and (orientation: portrait) and (max-width:640px);
+
+/* 가로모드 */
+@import 'mobile.style.css' screen and (orientation: landscape) and (max-width:958px) and (max-height:420px);

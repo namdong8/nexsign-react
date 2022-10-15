@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import api from '../../utils/api'
 import { setFonts } from '../../utils/cssVars'
-import { ErrorState, setErrorPopupMessage } from './errorSlice'
+import { ErrorState, setErrPopupMsg } from './errorSlice'
 import { setOpenApp } from './systemSlice'
 
 export interface ConfigState {
@@ -46,7 +46,7 @@ export const fetchSetConfig = createAsyncThunk(
 			// 유효한 JSON 형식 체크
 			if (typeof res === 'string') {
 				dispatch(setOpenApp(false))
-				dispatch(setErrorPopupMessage('설정 에러'))
+				dispatch(setErrPopupMsg('설정 에러'))
 			} else {
 				setFonts(res.RESOURCE_CONTEXT_URL)
 				dispatch(setConfig(res))
@@ -54,7 +54,7 @@ export const fetchSetConfig = createAsyncThunk(
 			}
 		} catch (err) {
 			dispatch(setOpenApp(false))
-			dispatch(setErrorPopupMessage('설정 에러'))
+			dispatch(setErrPopupMsg('설정 에러'))
 		}
 	},
 )
@@ -68,7 +68,7 @@ export const fetchSetTest = createAsyncThunk(
 			const res = (await api.getConfig(config.CONFIG_FILE_PATH + 1)).data
 			if (typeof res === 'string') {
 				dispatch(setOpenApp(false))
-				dispatch(setErrorPopupMessage('설정 에러'))
+				dispatch(setErrPopupMsg('설정 에러'))
 			} else {
 				setFonts(res.RESOURCE_CONTEXT_URL)
 				dispatch(setConfig(res))
@@ -76,7 +76,7 @@ export const fetchSetTest = createAsyncThunk(
 			}
 		} catch (err) {
 			dispatch(setOpenApp(false))
-			dispatch(setErrorPopupMessage('설정 에러'))
+			dispatch(setErrPopupMsg('설정 에러'))
 		}
 	},
 )

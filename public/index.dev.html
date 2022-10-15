@@ -30,8 +30,20 @@
         // 설정파일 경로 지정 및 설정값 반영
         NEX_SIGN.SET_CONFIG('./nex-sign/config/config.json')
 
+        NEX_SIGN.FN.REQUEST_RESPONSE = function(res) {
+            console.log(res)
+        }
+        NEX_SIGN.FN.CALLBACK_RESULT = function(res) {
+            console.log(res)
+        }
+        NEX_SIGN.FN.LOADED_VIEW = function(){
+            console.log('LOADED')
+        }
         // 인증창 렌더링
+        // Sample Size : 600px * 450px
         NEX_SIGN.POPUP()
+
+            
     }
 </script>
 </html>

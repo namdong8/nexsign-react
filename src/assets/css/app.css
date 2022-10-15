@@ -60,6 +60,9 @@
     align-content: center;
     justify-content: space-between;
 }
+.ns-error-contents{
+
+}
 .ns-error-bg{
     position: absolute;
     top: 0;
@@ -84,4 +87,12 @@
 }
 .ns-loading img{
     width: 50px;
+}
+
+
+
+/* 장차법 관련 Focus  */
+/* 테스트 코드 */
+.ns-error-contents:focus{
+    box-shadow: 0 0 0 1px black inset;
 }

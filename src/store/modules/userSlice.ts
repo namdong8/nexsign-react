@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import regExp from '../../utils/regExp'
-import { ErrorState, setErrorPopupMessage } from './errorSlice'
+import { ErrorState, setErrPopupMsg } from './errorSlice'
 import { setOpenApp } from './systemSlice'
 
 export interface UserState {
@@ -23,9 +23,11 @@ const initialState: UserState = {
 // ✅ Reducer 선언
 const reducers = {
 	setUser: (state: UserState, action: PayloadAction<UserState>) => {
-		state.name = action.payload.name
-		state.phone = action.payload.phone
-		state.birthday = action.payload.birthday
+		state.name = action.payload.name || ''
+		state.phone = action.payload.phone || ''
+		state.birthday = action.payload.birthday || ''
+		state.rrn1 = action.payload.rrn1 || ''
+		state.rrn2 = action.payload.rrn2 || ''
 	},
 	setName: (state: UserState, action: PayloadAction<string>) => {
 		state.name = action.payload
@@ -57,46 +59,46 @@ export const parsingUserInfo = createAsyncThunk(
 				return dispatch(setOpenApp(false))
 			}
 
-			if (regExp.name(user.name)) {
+			if (regExp.isName(user.name)) {
 				dispatch(setName(user.name))
 			} else {
-				return dispatch(setErrorPopupMessage('이름 유효성 체크'))
+				return dispatch(setErrPopupMsg('이름 유효성 체크'))
 			}
 
-			if (regExp.phoneNumber(user.phone)) {
+			if (regExp.isPhone(user.phone)) {
 				dispatch(setPhone(user.phone))
 			} else {
-				return dispatch(setErrorPopupMessage('휴대폰번호 유효성 체크'))
+				return dispatch(setErrPopupMsg('휴대폰번호 유효성 체크'))
 			}
 
-			if (regExp.birthNumber(user.birthday)) {
+			if (regExp.isBirthDay(user.birthday)) {
 				if (regExp.birthdayCheck(user.birthday)) {
 					dispatch(setBirthday(user.birthday))
 				} else {
-					return dispatch(setErrorPopupMessage('생년월일 유효성 체크2'))
+					return dispatch(setErrPopupMsg('생년월일 유효성 체크2'))
 				}
 			} else {
-				return dispatch(setErrorPopupMessage('생년월일 유효성 체크1'))
+				return dispatch(setErrPopupMsg('생년월일 유효성 체크1'))
 			}
 
 			if (!!user.rrn1 || !!user.rrn2) {
-				if (!regExp.rrn1Number(user.rrn1)) {
-					return dispatch(setErrorPopupMessage('주민등록번호 앞자리 유효성 체크'))
+				if (!regExp.isRrn1(user.rrn1)) {
+					return dispatch(setErrPopupMsg('주민등록번호 앞자리 유효성 체크'))
 				}
-				if (!regExp.rrn2Number(user.rrn2)) {
-					return dispatch(setErrorPopupMessage('주민등록번호 뒷자리 유효성 체크'))
+				if (!regExp.isRrn2(user.rrn2)) {
+					return dispatch(setErrPopupMsg('주민등록번호 뒷자리 유효성 체크'))
 				}
 
 				if (regExp.rrnCheck(user.rrn1, user.rrn2)) {
 					dispatch(setRrn1(user.rrn1))
 					dispatch(setRrn2(user.rrn2))
 				} else {
-					return dispatch(setErrorPopupMessage('주민등록번호 유효성 체크'))
+					return dispatch(setErrPopupMsg('주민등록번호 유효성 체크'))
 				}
 			}
 		} catch (err) {
 			dispatch(setOpenApp(false))
-			dispatch(setErrorPopupMessage('사용자 입력 검증 에러'))
+			dispatch(setErrPopupMsg('사용자 입력 검증 에러'))
 		}
 	},
 )

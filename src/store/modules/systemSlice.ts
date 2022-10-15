@@ -5,7 +5,7 @@ import MobileDetect from 'mobile-detect'
 import message from '../../utils/message'
 import { initCertifty } from './certifySlice'
 import { initConfig } from './configSlice'
-import { initError, setErrorPopupMessage } from './errorSlice'
+import { initError, setErrPopupMsg } from './errorSlice'
 import { initProvider } from './providerSlice'
 import { initUser } from './userSlice'
 
@@ -34,7 +34,7 @@ const reducers = {
 		state.isApp = action.payload
 	},
 	initSystem: (state: SystemState) => {
-		Object.assign(state, initialState)
+		Object.assign(state, { ...initialState, isApp: false })
 	},
 }
 
@@ -48,7 +48,7 @@ export const setSystemInit = createAsyncThunk(
 			const code = !!md.mobile() ? 'MO' : !!md.tablet() ? 'TB' : 'PC'
 			dispatch(setDeviceCode(code))
 		} catch (err) {
-			dispatch(setErrorPopupMessage(message.ERROR.SYSTEM))
+			dispatch(setErrPopupMsg(message.ERROR.SYSTEM))
 		}
 	},
 )
